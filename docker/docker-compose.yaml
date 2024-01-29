@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  mariadb:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: secret
+      MARIADB_DATABASE: cookgenda
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      cookgenda:
+        aliases:
+          - mariadb
+
+networks:
+  cookgenda:
+    name: cookgenda
+volumes:
+  mysql-data: { }
