@@ -1,6 +1,5 @@
 package ch.morgias.cookgenda.models.food;
 
-import ch.morgias.cookgenda.models.food.dto.AddFoodToRecipeDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +23,5 @@ public class Recipe {
     )
     private Collection<RecipeFood> recipeFoods = new HashSet<>();
 
-    public void addFoodRecipe(AddFoodToRecipeDto addFoodToRecipeDto) {
-
-    }
+    private String name;
 }

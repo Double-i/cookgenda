@@ -22,4 +22,5 @@ public class Food {
             orphanRemoval = true
     )
     private Collection<RecipeFood> recipeFoods = new HashSet<>();
+    private String name;
 }
