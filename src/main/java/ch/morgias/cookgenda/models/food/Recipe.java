@@ -24,4 +24,5 @@ public class Recipe {
     private Collection<RecipeFood> recipeFoods = new HashSet<>();
 
     private String name;
+    private String description;
 }
