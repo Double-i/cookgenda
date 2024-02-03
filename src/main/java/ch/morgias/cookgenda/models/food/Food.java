@@ -1,11 +1,12 @@
 package ch.morgias.cookgenda.models.food;
 
+import ch.morgias.cookgenda.models.shopping.ShoppingListFood;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -21,6 +22,12 @@ public class Food {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Collection<RecipeFood> recipeFoods = new HashSet<>();
+    private Set<RecipeFood> recipeFoods = new HashSet<>();
+    @OneToMany(
+            mappedBy = "food",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<ShoppingListFood> shoppingFoods = new HashSet<>();
     private String name;
 }

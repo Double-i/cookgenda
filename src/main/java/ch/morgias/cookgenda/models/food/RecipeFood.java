@@ -12,12 +12,13 @@ public class RecipeFood {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long quantity;
+    private Double quantity;
 
     @ManyToOne
-    @JoinColumn(name="foodId")
+    @JoinColumn(name = "foodId")
     private Food food;
+
     @ManyToOne
-    @JoinColumn(name="recipeId")
+    @JoinColumn(name = "recipeId")
     private Recipe recipe;
 }

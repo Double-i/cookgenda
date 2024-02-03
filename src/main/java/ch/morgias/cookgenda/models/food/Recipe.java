@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -21,7 +21,7 @@ public class Recipe {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Collection<RecipeFood> recipeFoods = new HashSet<>();
+    private Set<RecipeFood> recipeFoods = new HashSet<>();
 
     private String name;
     private String description;
