@@ -6,6 +6,7 @@ import ch.morgias.cookgenda.models.agenda.dto.PlanedRecipeDto;
 import ch.morgias.cookgenda.models.agenda.dto.mappers.PlanedRecipeMapper;
 import ch.morgias.cookgenda.services.agenda.PlanedRecipeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,8 @@ public class PlanedRecipeController {
     }
 
     @GetMapping(Routes.PLANED_RECIPE_INDEX_PERIOD)
-    public Collection<PlanedRecipeDto> getPlannedRecipe(@RequestParam LocalDateTime from, @RequestParam LocalDateTime to) {
+    public Collection<PlanedRecipeDto> getPlannedRecipe(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime from,
+                                                        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime to) {
         return PlanedRecipeMapper.INSTANCE.toPlanedRecipeDtoList(planedRecipeService.findPlanedRecipeByPeriod(from, to));
     }
 }
