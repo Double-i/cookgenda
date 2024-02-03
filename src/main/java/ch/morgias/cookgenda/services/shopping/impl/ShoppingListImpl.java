@@ -34,6 +34,8 @@ public class ShoppingListImpl implements ShoppingListService {
                         .stream()
                 ).toList();
         ShoppingList shoppingList = new ShoppingList();
+        shoppingList.setFromDate(from);
+        shoppingList.setToDate(to);
         // Is a Map because it allows us to have only one row for each food
         Map<Long, ShoppingListFood> shoppingListItem = transformRecipeFoodToShoppingListFood(recipeFoods, shoppingList);
         shoppingList.getShoppingListFoods().addAll(shoppingListItem.values());
