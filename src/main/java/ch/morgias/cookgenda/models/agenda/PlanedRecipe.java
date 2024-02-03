@@ -5,18 +5,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
 public class PlanedRecipe {
-
-    @ManyToOne
-    private Recipe recipe;
-
-    Calendar date;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    private Recipe recipe;
+    private LocalDateTime planedDate;
+
 }
