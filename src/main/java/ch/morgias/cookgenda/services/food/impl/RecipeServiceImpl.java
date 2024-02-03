@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -56,5 +57,10 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public void deleteRecipeById(Long recipeId) {
         recipeRepository.delete(findRecipeById(recipeId));
+    }
+
+    @Override
+    public Collection<Recipe> findAllRecipeByIdWithFoods(List<Long> recipeIds) {
+        return recipeRepository.findAllByIdWithFoods(recipeIds);
     }
 }
