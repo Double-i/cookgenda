@@ -13,6 +13,7 @@ public interface ShoppingListFoodMapper {
     ShoppingListFoodMapper INSTANCE = Mappers.getMapper(ShoppingListFoodMapper.class);
 
     @Mapping(source = "food.name", target = "name")
+    @Mapping(source = "food.id", target = "foodId")
     ShoppingListFoodDto toShoppingListDto(ShoppingListFood shoppingList);
 
     Collection<ShoppingListFoodDto> toShoppingListFoodListDto(Collection<ShoppingListFood> shoppingList);
