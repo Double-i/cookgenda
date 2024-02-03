@@ -8,6 +8,5 @@ import org.mapstruct.factory.Mappers;
 @Mapper(uses = {ShoppingListFoodMapper.class})
 public interface ShoppingListMapper {
     ShoppingListMapper INSTANCE = Mappers.getMapper(ShoppingListMapper.class);
-
     ShoppingListDto toShoppingListDto(ShoppingList shoppingList);
 }

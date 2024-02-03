@@ -13,6 +13,7 @@ import java.util.Collection;
 @RestController
 @RequiredArgsConstructor
 public class RecipeController {
+
     private final RecipeService recipeService;
 
     @GetMapping(Routes.RECIPE_INDEX)

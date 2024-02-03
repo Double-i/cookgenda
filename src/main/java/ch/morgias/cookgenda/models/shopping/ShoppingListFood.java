@@ -12,12 +12,9 @@ public class ShoppingListFood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
-
     @ManyToOne
     private ShoppingList shoppingList;
-
     @ManyToOne
     private Food food;
-
     private Double quantity;
 }

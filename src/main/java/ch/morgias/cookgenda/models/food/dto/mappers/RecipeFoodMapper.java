@@ -12,10 +12,7 @@ import java.util.Collection;
 @Mapper
 public interface RecipeFoodMapper {
     RecipeFoodMapper INSTANCE = Mappers.getMapper(RecipeFoodMapper.class);
-
     RecipeFood toRecipeFood(AddFoodToRecipeDto addFoodToRecipeDto);
-
     RecipeNameDto toRecipeNameDtoList(Recipe recipe);
-
     Collection<RecipeNameDto> toRecipeNameDtoList(Collection<Recipe> allRecipes);
 }

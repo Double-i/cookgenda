@@ -10,8 +10,6 @@ import java.util.Collection;
 @Mapper
 public interface FoodMapper {
     FoodMapper INSTANCE = Mappers.getMapper(FoodMapper.class);
-
     FoodNameDto toFoodNameDto(Food allFoods);
-
     Collection<FoodNameDto> toFoodNameDtoList(Collection<Food> allFoods);
 }

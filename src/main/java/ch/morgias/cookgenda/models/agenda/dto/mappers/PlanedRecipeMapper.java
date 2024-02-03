@@ -12,10 +12,7 @@ import java.util.Collection;
 @Mapper(uses = {RecipeMapper.class})
 public interface PlanedRecipeMapper {
     PlanedRecipeMapper INSTANCE = Mappers.getMapper(PlanedRecipeMapper.class);
-
     PlanedRecipe toPlanedRecipe(EditPlanedRecipeDto editPlanedRecipeDto);
-
     PlanedRecipeDto toPlanedRecipeDto(PlanedRecipe planedRecipe);
-
     Collection<PlanedRecipeDto> toPlanedRecipeDtoList(Collection<PlanedRecipe> planedRecipes);
 }

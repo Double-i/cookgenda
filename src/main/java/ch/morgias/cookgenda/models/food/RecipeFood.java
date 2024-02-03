@@ -11,13 +11,10 @@ public class RecipeFood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Double quantity;
-
     @ManyToOne
     @JoinColumn(name = "foodId")
     private Food food;
-
     @ManyToOne
     @JoinColumn(name = "recipeId")
     private Recipe recipe;

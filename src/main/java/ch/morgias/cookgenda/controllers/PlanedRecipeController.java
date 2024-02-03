@@ -17,12 +17,10 @@ import java.util.Collection;
 public class PlanedRecipeController {
 
     private final PlanedRecipeService planedRecipeService;
-
     @PostMapping(Routes.PLANED_RECIPE_CREATE)
     public PlanedRecipeDto plannedRecipe(@PathVariable Long recipeId, @RequestBody EditPlanedRecipeDto planedRecipeDto) {
         return PlanedRecipeMapper.INSTANCE.toPlanedRecipeDto(planedRecipeService.planRecipe(recipeId, planedRecipeDto));
     }
-
     @GetMapping(Routes.PLANED_RECIPE_INDEX_PERIOD)
     public Collection<PlanedRecipeDto> getPlannedRecipe(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime from,
                                                         @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime to) {

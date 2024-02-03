@@ -13,6 +13,5 @@ public class PlanedRecipeDto {
     Long id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime planedDate;
-
     RecipeNameDto recipe;
 }

@@ -13,8 +13,8 @@ import java.util.Collection;
 @RestController
 @RequiredArgsConstructor
 public class FoodController {
-    private final FoodService foodService;
 
+    private final FoodService foodService;
     @GetMapping(Routes.FOOD_INDEX)
     public Collection<FoodNameDto> getFoodNames() {
         return FoodMapper.INSTANCE.toFoodNameDtoList(foodService.getAllFoods());

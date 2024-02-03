@@ -13,7 +13,6 @@ public interface PlanedRecipeRepository extends JpaRepository<PlanedRecipe, Long
             "join fetch pr.recipe " +
             "where pr.planedDate between :to and :from ")
     List<PlanedRecipe> findByPeriod(LocalDateTime to, LocalDateTime from);
-
     @Query("select pr from PlanedRecipe pr " +
             "left join fetch pr.recipe r " +
             "left join fetch r.recipeFoods rf " +
