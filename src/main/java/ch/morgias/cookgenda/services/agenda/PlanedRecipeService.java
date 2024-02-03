@@ -15,4 +15,6 @@ public interface PlanedRecipeService {
     Collection<PlanedRecipe> findPlanedRecipeByPeriod(LocalDateTime to, LocalDateTime from);
 
     void deletePlanedRecipeById(Long recipeId);
+
+    Collection<PlanedRecipe> findPlanedRecipeByPeriodWithFoods(LocalDateTime from, LocalDateTime to);
 }

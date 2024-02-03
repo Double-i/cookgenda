@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -43,5 +44,10 @@ public class PlanedRecipeServiceImpl implements PlanedRecipeService {
     @Override
     public void deletePlanedRecipeById(Long recipeId) {
 
+    }
+
+    @Override
+    public Collection<PlanedRecipe> findPlanedRecipeByPeriodWithFoods(LocalDateTime from, LocalDateTime to) {
+        return planedRecipeRepository.findByPeriodWithFoods(from, to);
     }
 }
