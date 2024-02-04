@@ -7,10 +7,7 @@ import java.util.Collection;
 
 public interface FoodService {
     Collection<Food> getAllFoods();
-
     void createFood(FoodEditDto foodEditDto);
-
     Food findFoodById(Long id);
-
     void deleteById(Long id);
 }
