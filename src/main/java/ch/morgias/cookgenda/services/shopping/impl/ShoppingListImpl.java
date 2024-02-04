@@ -88,4 +88,9 @@ public class ShoppingListImpl implements ShoppingListService {
         ShoppingListFoodMapper.INSTANCE.updateShoppingListFood(food, editShoppingListFood);
         return null;
     }
+
+    @Override
+    public void deleteShoppingListFoodById(Long shoppingListFoodId) {
+        shoppingListItemRepository.delete(shoppingListItemRepository.getReferenceById(shoppingListFoodId));
+    }
 }

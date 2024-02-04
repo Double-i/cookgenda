@@ -8,4 +8,5 @@ public class Routes {
     public static final String PLANED_RECIPE_INDEX_PERIOD = BASE_API + "/planedRecipes";
     public static final String SHOPPING_LIST_GENERATE_FROM_TO = BASE_API + "/shoppingLists/generate";
     public static final String SHOPPING_LIST_FOOD_UPDATE = "/shoppingListFood/{shoppingListFoodId}";
+    public static final String SHOPPING_LIST_FOOD_DELETE = "/shoppingListFood/{shoppingListFoodId}";
 }

@@ -17,4 +17,7 @@ public interface ShoppingListService {
 
 
     ShoppingListFood updateShoppingListFoodById(Long shoppingListFoodId, EditShoppingListFood editShoppingListFood);
+
+    void deleteShoppingListFoodById(Long shoppingListFoodId);
+
 }

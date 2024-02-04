@@ -26,8 +26,14 @@ public class ShoppingListController {
     }
 
     @PatchMapping(Routes.SHOPPING_LIST_FOOD_UPDATE)
-    public ShoppingListFoodDto shoppingListDto(@PathVariable Long shoppingListFoodId, @RequestParam EditShoppingListFood editShoppingListFood) {
+    public ShoppingListFoodDto updateShoppingListFood(@PathVariable Long shoppingListFoodId, @RequestParam EditShoppingListFood editShoppingListFood) {
         return ShoppingListFoodMapper.INSTANCE.toShoppingListDto(shoppingListService.updateShoppingListFoodById(shoppingListFoodId, editShoppingListFood));
+
+    }
+
+    @DeleteMapping(Routes.SHOPPING_LIST_FOOD_DELETE)
+    public void deleteShoppingListFood(@PathVariable Long shoppingListFoodId) {
+        shoppingListService.deleteShoppingListFoodById(shoppingListFoodId);
 
     }
 }
