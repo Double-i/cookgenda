@@ -1,9 +1,12 @@
 package ch.morgias.cookgenda.services.shopping.impl;
 
+import ch.morgias.cookgenda.exceptions.ResourceNotFoundException;
 import ch.morgias.cookgenda.models.agenda.PlanedRecipe;
 import ch.morgias.cookgenda.models.food.RecipeFood;
 import ch.morgias.cookgenda.models.shopping.ShoppingList;
 import ch.morgias.cookgenda.models.shopping.ShoppingListFood;
+import ch.morgias.cookgenda.models.shopping.dto.EditShoppingListFood;
+import ch.morgias.cookgenda.models.shopping.dto.mappers.ShoppingListFoodMapper;
 import ch.morgias.cookgenda.repositories.ShoppingListItemRepository;
 import ch.morgias.cookgenda.repositories.ShoppingListRepository;
 import ch.morgias.cookgenda.services.agenda.PlanedRecipeService;
@@ -70,11 +73,19 @@ public class ShoppingListImpl implements ShoppingListService {
 
     @Override
     public ShoppingList getShoppingListById(Long shoppingListId) {
-        return null;
+        return shoppingListRepository.findById(shoppingListId).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
-    public void checkShoppingItem(Long shoppingItemId) {
+    public ShoppingListFood getShoppingListFoodById(Long shoppingListFoodId) {
+        return shoppingListItemRepository.findById(shoppingListFoodId).orElseThrow(ResourceNotFoundException::new);
+    }
 
+
+    @Override
+    public ShoppingListFood updateShoppingListFoodById(Long shoppingListFoodId, EditShoppingListFood editShoppingListFood) {
+        ShoppingListFood food = getShoppingListFoodById(shoppingListFoodId);
+        ShoppingListFoodMapper.INSTANCE.updateShoppingListFood(food, editShoppingListFood);
+        return null;
     }
 }
