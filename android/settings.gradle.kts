@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Cookgenda"
+rootProject.name = "android"
 include(":app")

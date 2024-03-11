@@ -1,32 +1,58 @@
 package ch.morgias.cookgenda.android
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import ch.morgias.cookgenda.android.databinding.ActivityMainBinding
-
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
-
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import ch.morgias.cookgenda.android.models.Recipe
+import ch.morgias.cookgenda.android.ui.recipesList.RecipesList
+import ch.morgias.cookgenda.android.ui.theme.AndroidTheme
+val fakeData = listOf<Recipe>(
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+)
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContent {
+            AndroidTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    RecipesList(fakeData)
+                }
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+            }
+        }
+    }
+}
 
-        val navView: BottomNavigationView = binding.navView
+@Composable
+fun
+        Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    AndroidTheme {
+        Greeting("Android")
     }
 }
