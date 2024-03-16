@@ -1,11 +1,6 @@
 package ch.morgias.cookgenda.android.ui.recipesList
 
-import android.content.res.Resources
-import android.graphics.BitmapFactory
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,23 +10,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import ch.morgias.cookgenda.android.models.Recipe
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import ch.morgias.cookgenda.android.R
+import ch.morgias.cookgenda.android.models.Recipe
 
 
 @Composable
@@ -50,9 +44,8 @@ fun RecipesList(list: List<Recipe>) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color.Yellow)
+                        .clip(RoundedCornerShape(20))
                         .defaultMinSize(minHeight = 80.dp)
-                        .border(BorderStroke(2.dp, Color.Black), shape = RoundedCornerShape(15))
                 ) {
 
                     Image(
@@ -60,20 +53,18 @@ fun RecipesList(list: List<Recipe>) {
                         "Recipe image",
                         modifier = Modifier
                             .height(80.dp)
-                            .border(0.dp, Color.Transparent, shape = RoundedCornerShape(50))
+                            .width(80.dp)
+                            .clip(RoundedCornerShape(20))
                     )
-                    Column(modifier = Modifier.fillMaxWidth()) {
+                    Column(modifier = Modifier.weight(1F).padding(10.dp)) {
                         Text("COUCOU")
-                        Text("COUCOU2")
+                        Text(color = Color.DarkGray, text = "COUCOU2")
                     }
-                    Column(modifier = Modifier.height(80.dp)) {
-                        Text("COUCOU23")
-                        Text("COUCOU23")
-                        Text("COUCOU23")
-                        Text("COUCOU23")
-                        Text("COUCOU23")
-                        Text("COUCOU23")
+                    Column(modifier = Modifier.height(80.dp)
+                       .padding(10.dp), verticalArrangement = Arrangement.Center
+                    ) {
                         Icon(
+
                             Icons.Rounded.ArrowForward, contentDescription = "test"
                         )
                     }

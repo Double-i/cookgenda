@@ -21,6 +21,10 @@ val fakeData = listOf<Recipe>(
     Recipe("test", "test"),
     Recipe("test", "test"),
     Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
 )
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
