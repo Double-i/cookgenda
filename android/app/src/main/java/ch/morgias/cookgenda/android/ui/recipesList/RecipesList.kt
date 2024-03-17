@@ -2,10 +2,10 @@ package ch.morgias.cookgenda.android.ui.recipesList
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,15 +22,33 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import ch.morgias.cookgenda.android.R
+import ch.morgias.cookgenda.android.Screen
 import ch.morgias.cookgenda.android.models.Recipe
 
+val list = listOf<Recipe>(
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+    Recipe("test", "test"),
+)
 
 @Composable
-fun RecipesList(list: List<Recipe>) {
+@Preview
+fun RecipesList(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -42,12 +60,14 @@ fun RecipesList(list: List<Recipe>) {
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
             items(list) { recipe ->
+                val shape = RoundedCornerShape(20)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(color= Color.Green)
-                        .clip(RoundedCornerShape(20))
-                        .defaultMinSize(minHeight = 80.dp)
+                        .shadow(5.dp, shape)
+                        .background(color = Color.Green)
+                        .height(80.dp)
+                        .clickable { navController.navigate(Screen.PlanningListScreen.route) }
                 ) {
 
                     Image(
@@ -56,14 +76,20 @@ fun RecipesList(list: List<Recipe>) {
                         modifier = Modifier
                             .height(80.dp)
                             .width(80.dp)
-                            .clip(RoundedCornerShape(20))
+                            .clip(RoundedCornerShape(15))
                     )
-                    Column(modifier = Modifier.weight(1F).padding(10.dp)) {
+                    Column(
+                        modifier = Modifier
+                            .weight(1F)
+                            .padding(10.dp)
+                    ) {
                         Text("COUCOU")
                         Text(color = Color.Gray, text = "COUCOU2")
                     }
-                    Column(modifier = Modifier.height(80.dp)
-                       .padding(10.dp), verticalArrangement = Arrangement.Center
+                    Column(
+                        modifier = Modifier
+                            .height(80.dp)
+                            .padding(10.dp), verticalArrangement = Arrangement.Center
                     ) {
                         Icon(
 

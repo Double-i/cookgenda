@@ -22,30 +22,19 @@ import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ch.morgias.cookgenda.android.models.Recipe
-import ch.morgias.cookgenda.android.ui.recipesList.RecipesList
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import ch.morgias.cookgenda.android.ui.theme.AndroidTheme
-
-val fakeData = listOf<Recipe>(
-    Recipe("test", "test"),
-    Recipe("test", "test"),
-    Recipe("test", "test"),
-    Recipe("test", "test"),
-    Recipe("test", "test"),
-    Recipe("test", "test"),
-    Recipe("test", "test"),
-    Recipe("test", "test"),
-    Recipe("test", "test"),
-    Recipe("test", "test"),
-    Recipe("test", "test"),
-)
 
 
 class MainActivity : ComponentActivity() {
@@ -53,10 +42,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AndroidTheme {
-                // A surface container using the 'background' color from the theme
                 ScaffoldBase()
-
-
             }
         }
     }
@@ -65,8 +51,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 @Preview
 fun ScaffoldBase() {
+    val navController: NavHostController = rememberNavController()
     Scaffold(bottomBar = {
-        BottomMenu()
+        BottomMenu(navController)
     }
     ) {
         Column(
@@ -74,57 +61,87 @@ fun ScaffoldBase() {
                 .fillMaxSize()
                 .padding(it)
         ) {
-            RecipesList(fakeData)
+            GraphRouter(navController)
         }
     }
 }
-fun coucou(){
-    println("COUCOU")
-}
 
 @Composable
-fun BottomMenuItem(text: String, icon: ImageVector, modifier: Modifier) {
-    Column(modifier = modifier.clickable { coucou() }, horizontalAlignment = Alignment.CenterHorizontally) {
+fun BottomMenuItem(
+    text: String,
+    icon: ImageVector,
+    selected: Boolean,
+    modifier: Modifier,
+    onClickHandler: () -> Unit
+) {
+    Column(
+        modifier = modifier.clickable { onClickHandler() },
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         NavigationBarDefaults
         Icon(
-            icon, contentDescription = text
+            icon,
+            contentDescription = text,
+            tint = if (selected) Color.Blue else Color.Black
         )
         Text(text = text, color = Color.Gray)
     }
 }
 
 @Composable
-fun BottomMenu() {
-    Row(modifier = Modifier
-        .height(50.dp)
-        .background(Color.Yellow)) {
+fun BottomMenu(
+    navController: NavHostController,
+) {
+    var selected by remember { mutableStateOf(navController.currentBackStackEntry?.destination?.route) }
+
+    Row(
+        modifier = Modifier
+            .height(50.dp)
+            .background(Color.Yellow)
+    ) {
         BottomMenuItem(
-            "Recettes", Icons.Outlined.Menu,
+            "Recettes",
+            Icons.Outlined.Menu,
+            selected == Screen.RecipesListScreen.route,
+
             Modifier
                 .weight(1F)
                 .fillMaxHeight()
-        )
+        ) {
+            selected = Screen.RecipesListScreen.route
+            navController.navigate(Screen.RecipesListScreen.route)
+        }
         Divider(
             modifier = Modifier
                 .fillMaxHeight()  //fill the max height
                 .width(1.dp)
         )
         BottomMenuItem(
-            "Planification", Icons.Outlined.DateRange,
+            "Planification",
+            Icons.Outlined.DateRange,
+            selected == Screen.PlanningListScreen.route,
             Modifier
                 .weight(1F)
                 .fillMaxHeight()
-        )
+        ) {
+            selected = Screen.PlanningListScreen.route
+            navController.navigate(Screen.PlanningListScreen.route)
+        }
         Divider(
             modifier = Modifier
-                .fillMaxHeight()  //fill the max height
+                .fillMaxHeight()
                 .width(1.dp)
         )
         BottomMenuItem(
-            "Courses", Icons.Outlined.ShoppingCart,
+            "Courses",
+            Icons.Outlined.ShoppingCart,
+            selected == Screen.CourseListScreen.route,
             Modifier
                 .weight(1F)
                 .fillMaxHeight()
-        )
+        ) {
+            selected = Screen.CourseListScreen.route
+            navController.navigate(Screen.CourseListScreen.route)
+        }
     }
 }
