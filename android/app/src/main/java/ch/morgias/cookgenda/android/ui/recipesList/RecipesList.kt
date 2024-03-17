@@ -1,6 +1,7 @@
 package ch.morgias.cookgenda.android.ui.recipesList
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -44,6 +45,7 @@ fun RecipesList(list: List<Recipe>) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .background(color= Color.Green)
                         .clip(RoundedCornerShape(20))
                         .defaultMinSize(minHeight = 80.dp)
                 ) {
@@ -58,7 +60,7 @@ fun RecipesList(list: List<Recipe>) {
                     )
                     Column(modifier = Modifier.weight(1F).padding(10.dp)) {
                         Text("COUCOU")
-                        Text(color = Color.DarkGray, text = "COUCOU2")
+                        Text(color = Color.Gray, text = "COUCOU2")
                     }
                     Column(modifier = Modifier.height(80.dp)
                        .padding(10.dp), verticalArrangement = Arrangement.Center
