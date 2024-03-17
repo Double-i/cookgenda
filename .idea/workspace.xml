@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a83a8ff3-a1a5-4b52-8023-cdf57b255edf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/docker-compose.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/CookgendaApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/controllers/FoodController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/controllers/PlanedRecipeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/controllers/RecipeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/controllers/ShoppingListController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/exceptions/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/infrastructure/Routes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/agenda/PlanedRecipe.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/agenda/dto/EditPlanedRecipeDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/agenda/dto/PlanedRecipeDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/agenda/dto/mappers/PlanedRecipeMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/food/Food.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/food/Recipe.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/food/RecipeFood.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/food/dto/AddFoodToRecipeDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/food/dto/FoodEditDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/food/dto/FoodNameDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/food/dto/RecipeEditDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/food/dto/RecipeNameDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/food/dto/mappers/FoodMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/food/dto/mappers/RecipeFoodMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/food/dto/mappers/RecipeMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/shopping/ShoppingList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/shopping/ShoppingListFood.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/shopping/dto/EditShoppingListFood.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/shopping/dto/ShoppingListDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/shopping/dto/ShoppingListFoodDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/shopping/dto/mappers/ShoppingListFoodMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/models/shopping/dto/mappers/ShoppingListMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/repositories/FoodRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/repositories/PlanedRecipeRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/repositories/RecipeRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/repositories/ShoppingListItemRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/repositories/ShoppingListRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/services/agenda/PlanedRecipeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/services/agenda/impl/PlanedRecipeServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/services/food/FoodService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/services/food/RecipeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/services/food/impl/FoodServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/services/food/impl/RecipeServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/services/shopping/ShoppingListService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/morgias/cookgenda/services/shopping/impl/ShoppingListImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ch/morgias/cookgenda/CookgendaApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2bu5AGqxkAjd5F31Tfo5siH1udB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/igouj/Dev/cookgenda/backend",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a83a8ff3-a1a5-4b52-8023-cdf57b255edf" name="Changes" comment="" />
+      <created>1707051977643</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1707051977643</updated>
+      <workItem from="1707051978679" duration="15000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
