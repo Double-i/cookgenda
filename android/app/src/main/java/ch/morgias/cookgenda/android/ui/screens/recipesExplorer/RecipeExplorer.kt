@@ -1,4 +1,4 @@
-package ch.morgias.cookgenda.android.ui.recipesList
+package ch.morgias.cookgenda.android.ui.screens.recipesExplorer
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import ch.morgias.cookgenda.android.ui.Course
-import ch.morgias.cookgenda.android.ui.Planning
-import ch.morgias.cookgenda.android.ui.recipesList.RecipesList
+import ch.morgias.cookgenda.android.ui.screens.courses.Course
+import ch.morgias.cookgenda.android.ui.screens.planning.Planning
+import ch.morgias.cookgenda.android.ui.screens.recipesExplorer.RecipesList
 
 @Composable
 fun GraphRouter(navController: NavHostController) {

@@ -1,9 +1,9 @@
-package ch.morgias.cookgenda.android.ui
+package ch.morgias.cookgenda.android.ui.screens.courses
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun Planning() {
-    Text(text = "Planning")
+fun Course() {
+    Text(text = "Course")
 }
