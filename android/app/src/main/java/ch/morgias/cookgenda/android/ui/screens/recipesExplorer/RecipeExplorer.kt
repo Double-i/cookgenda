@@ -48,7 +48,8 @@ val list = listOf<Recipe>(
 
 @Composable
 @Preview
-fun RecipesList(navController: NavHostController) {
+fun RecipesList(navController: NavHostController, viewModel: RecipeViewModel) {
+    viewModel.RecipeUiState
     Column(
         modifier = Modifier
             .fillMaxSize()

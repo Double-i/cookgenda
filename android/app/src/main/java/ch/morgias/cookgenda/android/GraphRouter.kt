@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import ch.morgias.cookgenda.android.ui.screens.courses.Course
 import ch.morgias.cookgenda.android.ui.screens.planning.Planning
+import ch.morgias.cookgenda.android.ui.screens.recipesExplorer.RecipeViewModel
 import ch.morgias.cookgenda.android.ui.screens.recipesExplorer.RecipesList
 
 @Composable
@@ -18,7 +19,8 @@ fun GraphRouter(navController: NavHostController) {
             Planning()
         }
         composable(route = Screen.RecipesListScreen.route) {
-            RecipesList(navController)
+            val viewModel = RecipeViewModel()
+            RecipesList(navController, viewModel)
         }
     }
 }
