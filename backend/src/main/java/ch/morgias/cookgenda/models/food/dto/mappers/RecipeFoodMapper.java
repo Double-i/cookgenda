@@ -3,6 +3,7 @@ package ch.morgias.cookgenda.models.food.dto.mappers;
 import ch.morgias.cookgenda.models.food.Recipe;
 import ch.morgias.cookgenda.models.food.RecipeFood;
 import ch.morgias.cookgenda.models.food.dto.AddFoodToRecipeDto;
+import ch.morgias.cookgenda.models.food.dto.RecipeDetailDto;
 import ch.morgias.cookgenda.models.food.dto.RecipeNameDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -15,4 +16,5 @@ public interface RecipeFoodMapper {
     RecipeFood toRecipeFood(AddFoodToRecipeDto addFoodToRecipeDto);
     RecipeNameDto toRecipeNameDtoList(Recipe recipe);
     Collection<RecipeNameDto> toRecipeNameDtoList(Collection<Recipe> allRecipes);
+    RecipeDetailDto toRecipeDetailDto(Recipe recipe);
 }

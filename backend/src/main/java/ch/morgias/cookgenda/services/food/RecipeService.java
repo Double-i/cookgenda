@@ -19,4 +19,6 @@ public interface RecipeService {
     void deleteRecipeById(Long recipeId);
 
     Collection<Recipe> findAllRecipeByIdWithFoods(List<Long> recipeIds);
+
+    Recipe getRecipeById(Long recipeId);
 }

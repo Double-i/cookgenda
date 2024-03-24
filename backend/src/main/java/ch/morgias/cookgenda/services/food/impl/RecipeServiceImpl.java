@@ -63,4 +63,13 @@ public class RecipeServiceImpl implements RecipeService {
     public Collection<Recipe> findAllRecipeByIdWithFoods(List<Long> recipeIds) {
         return recipeRepository.findAllByIdWithFoods(recipeIds);
     }
+
+    @Override
+    public Recipe getRecipeById(Long recipeId) {
+        Collection<Recipe> result = recipeRepository.findAllByIdWithFoods(List.of(recipeId));
+        if (result.isEmpty()) {
+            throw new ResourceNotFoundException();
+        }
+        return result.iterator().next();
+    }
 }
