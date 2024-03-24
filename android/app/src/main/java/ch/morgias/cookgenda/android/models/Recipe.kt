@@ -1,4 +1,7 @@
 package ch.morgias.cookgenda.android.models
 
-data class Recipe(val name: String, val description: String) {
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Recipe(val id: Int, val name: String) {
 }

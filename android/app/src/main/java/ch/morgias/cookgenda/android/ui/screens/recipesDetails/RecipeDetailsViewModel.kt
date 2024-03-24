@@ -1,4 +1,4 @@
-package ch.morgias.cookgenda.android.ui.screens.recipesExplorer
+package ch.morgias.cookgenda.android.ui.screens.recipesDetails
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -10,22 +10,20 @@ import ch.morgias.cookgenda.android.network.RecipeApi
 import ch.morgias.cookgenda.android.network.RequestState
 import kotlinx.coroutines.launch
 
-class RecipeViewModel : ViewModel() {
-    var RecipeUiState: RequestState by mutableStateOf(RequestState.Loading)
+class RecipeDetailsViewModel : ViewModel() {
+    var recipeUiState: RequestState by mutableStateOf(RequestState.Loading)
         private set
 
-    init {
-        getRecipes()
-    }
 
-    private fun getRecipes() {
+    fun getRecipeDetail(id: Int) {
         viewModelScope.launch {
-            RecipeUiState = try {
-                RequestState.Success(RecipeApi.retrofitService.getRecipes())
+            recipeUiState = try {
+                RequestState.Success(RecipeApi.retrofitService.getRecipe(id))
             } catch (ex: Exception) {
                 Log.e("t", ex.message!!, ex.cause)
                 RequestState.Error
             }
+            Log.i("VM", recipeUiState.toString())
         }
     }
 }

@@ -1,7 +1,7 @@
 package ch.morgias.cookgenda.android.network
 
 sealed interface RequestState {
-    class Success(result: String) : RequestState
-    object Loading : RequestState
-    object Error : RequestState
+    data class Success<out T>(val result: T) : RequestState
+    data object Loading : RequestState
+    data object Error : RequestState
 }
