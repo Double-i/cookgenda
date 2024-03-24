@@ -20,7 +20,7 @@ import ch.morgias.cookgenda.android.ui.screens.common.Loading
 @Composable
 @Preview
 fun RecipeDetails(recipeId: Int, recipeDetailViewModel: RecipeDetailsViewModel) {
-    LaunchedEffect(recipeId) {
+    LaunchedEffect(recipeDetailViewModel) {
         recipeDetailViewModel.getRecipeDetail(recipeId) // Déclenche le fetch des données
         Log.i("RecipeDetails", "données recette ")
     }
