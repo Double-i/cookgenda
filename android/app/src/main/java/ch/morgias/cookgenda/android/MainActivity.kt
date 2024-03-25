@@ -16,11 +16,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.ShoppingCart
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -111,7 +111,7 @@ fun BottomMenu(
             selected = Screen.RecipesListScreen.route
             navController.navigate(Screen.RecipesListScreen.route)
         }
-        Divider(
+        VerticalDivider(
             modifier = Modifier
                 .fillMaxHeight()  //fill the max height
                 .width(1.dp)
@@ -127,7 +127,7 @@ fun BottomMenu(
             selected = Screen.PlanningListScreen.route
             navController.navigate(Screen.PlanningListScreen.route)
         }
-        Divider(
+        VerticalDivider(
             modifier = Modifier
                 .fillMaxHeight()
                 .width(1.dp)
