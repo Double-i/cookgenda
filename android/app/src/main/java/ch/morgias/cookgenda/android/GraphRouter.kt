@@ -1,6 +1,7 @@
 package ch.morgias.cookgenda.android
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -26,16 +27,15 @@ fun GraphRouter(navController: NavHostController) {
             route = Screen.RecipesListScreen.route,
 
             ) {
-            RecipesList(navController, RecipeViewModel())
-
-
+            val vm = viewModel<RecipeViewModel>()
+            RecipesList(navController, vm)
         }
         composable(
             route = Screen.RecipeDetailsScreen.route,
             arguments = listOf(navArgument("recipeId") { type = NavType.IntType })
         ) {
-            val t = RecipeDetailsViewModel()
-            RecipeDetails(it.arguments!!.getInt("recipeId"), t)
+            val vm = viewModel<RecipeDetailsViewModel>()
+            RecipeDetails(it.arguments!!.getInt("recipeId"), vm)
         }
     }
 }
