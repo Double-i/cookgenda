@@ -1,9 +1,9 @@
-package ch.morgias.cookgenda.android.ui.screens.courses
+package ch.morgias.cookgenda.android.ui.screens.ShoppingList
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun Course() {
+fun ShoppingList() {
     Text(text = "Course")
 }

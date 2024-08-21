@@ -15,7 +15,6 @@ class RecipeDetailsViewModel : ViewModel() {
         MutableStateFlow(RequestState.Loading)
     val uiState: StateFlow<RequestState> = _recipeUiState.asStateFlow()
 
-
     fun getRecipeDetail(id: Int) {
         viewModelScope.launch {
             _recipeUiState.value = try {

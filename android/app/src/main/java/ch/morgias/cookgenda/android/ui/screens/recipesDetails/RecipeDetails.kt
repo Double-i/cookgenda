@@ -1,12 +1,17 @@
 package ch.morgias.cookgenda.android.ui.screens.recipesDetails
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,9 +34,13 @@ fun RecipeDetails(recipeId: Int, recipeDetailViewModel: RecipeDetailsViewModel) 
         is RequestState.Success<*> -> {
             val details =
                 (state as RequestState.Success<RecipeDetails>).result
-
-            Row() {
-                Image(painterResource(id = R.drawable.recipe), contentDescription = "Oui")
+            Row(modifier = Modifier.background(Color.Green)) {
+                Image(
+                    painterResource(id = R.drawable.recipe),
+                    contentDescription = "Oui",
+                    contentScale = ContentScale.FillWidth,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
             Row() {
                 Text(details.name)
@@ -48,5 +57,4 @@ fun RecipeDetails(recipeId: Int, recipeDetailViewModel: RecipeDetailsViewModel) 
             }
         }
     }
-
 }
