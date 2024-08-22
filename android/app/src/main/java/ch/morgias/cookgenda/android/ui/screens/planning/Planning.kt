@@ -22,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -33,6 +34,7 @@ import ch.morgias.cookgenda.android.R
 import ch.morgias.cookgenda.android.models.PlaningDay
 import ch.morgias.cookgenda.android.models.Recipe
 import ch.morgias.cookgenda.android.models.createWeekPlaning
+import ch.morgias.cookgenda.android.ui.screens.recipesDetails.RecipeDetailsViewModel
 import java.time.format.DateTimeFormatter
 
 fun addMeal() {
@@ -40,7 +42,7 @@ fun addMeal() {
 }
 
 @Composable
-fun DayPlaning(day: PlaningDay) {
+fun DayPlaning(day: PlaningDay, planningMode: Boolean) {
     Column(
         modifier = Modifier.padding(start = 4.dp, end = 4.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -51,8 +53,14 @@ fun DayPlaning(day: PlaningDay) {
             modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
         )
         day.recipe.forEach { r -> DayMealPlaning(recipe = r) }
-        Button(onClick = {}, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Ajouter")
+        Button(onClick = {
+            /**
+             * TODO :- Envoyer une requête pour ajouter la planification
+             *       - Receptionner reponse
+             *       - mettre à jour (idéalement) le jour
+             */
+        }, modifier = Modifier.fillMaxWidth()) {
+            Text(text = if (planningMode) "Planifier " else "Ajouter")
         }
     }
 }
@@ -99,14 +107,26 @@ fun DayMealPlaning(recipe: Recipe) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Planning(navController: NavHostController) {
+fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel) {
     val pager = rememberPagerState(pageCount = { 5 })
-    HorizontalPager(state = pager) { page ->
-        Column {
-            Row {
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    items(createWeekPlaning(page)) { day ->
-                        DayPlaning(day = day)
+    Column {
+        var t = viewModel.selectedRecipe.observeAsState().value
+        viewModel.selectedRecipe.observeAsState().value?.let {
+            Text(
+                text = "Ajouter la recette : ${it.name}"
+            )
+        }
+        HorizontalPager(state = pager) { page ->
+            Column {
+                Row {
+                    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        items(createWeekPlaning(page)) { day ->
+                            DayPlaning(
+                                day = day,
+                                planningMode = viewModel.planningMode.observeAsState().value
+                                    ?: false
+                            )
+                        }
                     }
                 }
             }
