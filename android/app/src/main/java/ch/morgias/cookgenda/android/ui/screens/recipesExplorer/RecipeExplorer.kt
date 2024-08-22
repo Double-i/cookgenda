@@ -25,7 +25,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import ch.morgias.cookgenda.android.R
@@ -50,7 +49,6 @@ val list = listOf<Recipe>(
 )
 
 @Composable
-@Preview
 fun RecipesList(navController: NavHostController, viewModel: RecipeViewModel) {
     when (viewModel.RecipeUiState) {
         RequestState.Error -> ErrorLoading()
@@ -60,7 +58,6 @@ fun RecipesList(navController: NavHostController, viewModel: RecipeViewModel) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(10.dp)
-
             ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxHeight(),
@@ -82,7 +79,6 @@ fun RecipesList(navController: NavHostController, viewModel: RecipeViewModel) {
                                     )
                                 }
                         ) {
-
                             Image(
                                 painter = painterResource(id = R.drawable.recipe),
                                 "Recipe image",
@@ -111,11 +107,9 @@ fun RecipesList(navController: NavHostController, viewModel: RecipeViewModel) {
                                 )
                             }
                         }
-
                     }
                 }
             }
         }
     }
-
 }
