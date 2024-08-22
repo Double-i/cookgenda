@@ -31,7 +31,9 @@ import ch.morgias.cookgenda.android.models.Recipe
 import ch.morgias.cookgenda.android.models.createWeekPlaning
 import java.time.format.DateTimeFormatter
 
-val list = createWeekPlaning()
+fun addMeal() {
+
+}
 
 @Composable
 fun DayPlaning(day: PlaningDay) {
@@ -45,6 +47,9 @@ fun DayPlaning(day: PlaningDay) {
             modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
         )
         day.recipe.forEach { r -> DayMealPlaning(recipe = r) }
+        Button(onClick = {}, modifier = Modifier.fillMaxWidth()) {
+            Text(text = "Ajouter")
+        }
     }
 }
 
