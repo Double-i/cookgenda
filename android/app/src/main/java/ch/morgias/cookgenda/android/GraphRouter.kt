@@ -16,12 +16,13 @@ import ch.morgias.cookgenda.android.ui.screens.recipesExplorer.RecipesList
 
 @Composable
 fun GraphRouter(navController: NavHostController) {
+    val recipeDetailsVm = viewModel<RecipeDetailsViewModel>()
     NavHost(navController = navController, startDestination = Screen.RecipesListScreen.route) {
         composable(route = Screen.CourseListScreen.route) {
             ShoppingList()
         }
         composable(route = Screen.PlanningListScreen.route) {
-            Planning(navController)
+            Planning(navController, recipeDetailsVm)
         }
         composable(
             route = Screen.RecipesListScreen.route,
@@ -34,8 +35,7 @@ fun GraphRouter(navController: NavHostController) {
             route = Screen.RecipeDetailsScreen.route,
             arguments = listOf(navArgument("recipeId") { type = NavType.IntType })
         ) {
-            val vm = viewModel<RecipeDetailsViewModel>()
-            RecipeDetails(it.arguments!!.getInt("recipeId"), vm)
+            RecipeDetails(navController, it.arguments!!.getInt("recipeId"), recipeDetailsVm)
         }
     }
 }
