@@ -1,5 +1,6 @@
 package ch.morgias.cookgenda.android.ui.screens.planning
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,9 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowForward
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -93,13 +97,17 @@ fun DayMealPlaning(recipe: Recipe) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Planning(navController: NavHostController) {
-    Column {
-        Row {
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                items(list) { day ->
-                    DayPlaning(day = day)
+    val pager = rememberPagerState(pageCount = { 5 })
+    HorizontalPager(state = pager) { page ->
+        Column {
+            Row {
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    items(createWeekPlaning(page)) { day ->
+                        DayPlaning(day = day)
+                    }
                 }
             }
         }
