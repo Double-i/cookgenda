@@ -22,5 +22,6 @@ public class Recipe {
     )
     private Set<RecipeFood> recipeFoods = new HashSet<>();
     private String name;
+    @Column(columnDefinition = "TEXT")
     private String description;
 }
