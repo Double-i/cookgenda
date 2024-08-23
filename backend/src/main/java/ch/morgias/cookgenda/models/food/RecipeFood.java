@@ -12,6 +12,7 @@ public class RecipeFood {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double quantity;
+    // TODO ajouter ici ou dans food le type de quantity (unité, masse, volume etc.)
     @ManyToOne
     @JoinColumn(name = "foodId")
     private Food food;
