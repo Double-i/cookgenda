@@ -22,6 +22,7 @@ public class Recipe {
     )
     private Set<RecipeFood> recipeFoods = new HashSet<>();
     private String name;
+    private String image;
     @Column(columnDefinition = "TEXT")
     private String description;
 }
