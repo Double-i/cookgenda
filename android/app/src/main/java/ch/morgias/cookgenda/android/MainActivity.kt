@@ -108,6 +108,9 @@ fun BottomMenu(
                 .weight(1F)
                 .fillMaxHeight()
         ) {
+            if (selected == Screen.RecipesListScreen.route) {
+                return@BottomMenuItem
+            }
             selected = Screen.RecipesListScreen.route
             navController.navigate(Screen.RecipesListScreen.route)
         }
@@ -124,6 +127,9 @@ fun BottomMenu(
                 .weight(1F)
                 .fillMaxHeight()
         ) {
+            if (selected == Screen.PlanningListScreen.route) {
+                return@BottomMenuItem
+            }
             selected = Screen.PlanningListScreen.route
             navController.navigate(Screen.PlanningListScreen.route)
         }
@@ -140,6 +146,9 @@ fun BottomMenu(
                 .weight(1F)
                 .fillMaxHeight()
         ) {
+            if (selected == Screen.CourseListScreen.route) {
+                return@BottomMenuItem
+            }
             selected = Screen.CourseListScreen.route
             navController.navigate(Screen.CourseListScreen.route)
         }
