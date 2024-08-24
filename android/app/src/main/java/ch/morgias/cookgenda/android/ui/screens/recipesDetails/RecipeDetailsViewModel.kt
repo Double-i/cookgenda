@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import ch.morgias.cookgenda.android.models.RecipeDetails
+import ch.morgias.cookgenda.android.network.PlaningApi
 import ch.morgias.cookgenda.android.network.RecipeApi
 import ch.morgias.cookgenda.android.network.RequestState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,11 +21,31 @@ class RecipeDetailsViewModel : ViewModel() {
         MutableLiveData(recipe != null)
     }
     var selectedRecipe: LiveData<RecipeDetails?> = _selectedRecipe
+
     private val _recipeUiState: MutableStateFlow<RequestState> =
         MutableStateFlow(RequestState.Loading)
     val uiState: StateFlow<RequestState> = _recipeUiState.asStateFlow()
+
+
+    private val _planningUiState: MutableStateFlow<RequestState> = MutableStateFlow(
+        RequestState.Loading
+    )
+    val planningUiState: StateFlow<RequestState> = _planningUiState.asStateFlow()
+
+
     fun selectRecipe(recipe: RecipeDetails) {
         _selectedRecipe.value = recipe
+    }
+
+    fun getPlannedRecipeForSpecificWeek(week: Int) {
+        viewModelScope.launch {
+            _planningUiState.value = try {
+                RequestState.Success(PlaningApi.retrofitService.getPlaningForWeek(week))
+            } catch (ex: Exception) {
+                Log.e("planning", ex.message!!, ex.cause)
+                RequestState.Error
+            }
+        }
     }
 
     fun getRecipeDetail(id: Int) {

@@ -22,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,6 +35,9 @@ import ch.morgias.cookgenda.android.R
 import ch.morgias.cookgenda.android.models.PlaningDay
 import ch.morgias.cookgenda.android.models.Recipe
 import ch.morgias.cookgenda.android.models.createWeekPlaning
+import ch.morgias.cookgenda.android.network.RequestState
+import ch.morgias.cookgenda.android.ui.screens.common.ErrorLoading
+import ch.morgias.cookgenda.android.ui.screens.common.Loading
 import ch.morgias.cookgenda.android.ui.screens.recipesDetails.RecipeDetailsViewModel
 import java.time.format.DateTimeFormatter
 
@@ -117,15 +121,23 @@ fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel
             )
         }
         HorizontalPager(state = pager) { page ->
-            Column {
-                Row {
-                    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                        items(createWeekPlaning(page)) { day ->
-                            DayPlaning(
-                                day = day,
-                                planningMode = viewModel.planningMode.observeAsState().value
-                                    ?: false
-                            )
+            viewModel.getPlannedRecipeForSpecificWeek(page)
+            when (viewModel.planningUiState.collectAsState().value) {
+                RequestState.Error -> ErrorLoading()
+                RequestState.Loading -> Loading()
+                is RequestState.Success<*> -> {
+                    Column {
+                        Row {
+                            LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                                items(createWeekPlaning(page)) { day ->
+
+                                    DayPlaning(
+                                        day = day,
+                                        planningMode = viewModel.planningMode.observeAsState().value
+                                            ?: false
+                                    )
+                                }
+                            }
                         }
                     }
                 }
