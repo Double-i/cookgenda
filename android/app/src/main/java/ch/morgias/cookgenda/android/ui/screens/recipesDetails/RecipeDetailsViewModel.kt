@@ -68,4 +68,8 @@ class RecipeDetailsViewModel : ViewModel() {
             }
         }
     }
+
+    fun addToPlaning(id: Int, date: LocalDate) {
+        TODO("Not yet implemented")
+    }
 }

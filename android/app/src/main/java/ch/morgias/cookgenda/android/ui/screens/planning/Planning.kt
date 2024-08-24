@@ -38,14 +38,17 @@ import ch.morgias.cookgenda.android.network.RequestState
 import ch.morgias.cookgenda.android.ui.screens.common.ErrorLoading
 import ch.morgias.cookgenda.android.ui.screens.common.Loading
 import ch.morgias.cookgenda.android.ui.screens.recipesDetails.RecipeDetailsViewModel
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-fun addMeal() {
-
-}
+typealias onAddMealCallback = (recipeId: Int, date: LocalDate) -> Unit
 
 @Composable
-fun DayPlaning(day: PlaningDay, planningMode: Boolean) {
+fun DayPlaning(
+    day: PlaningDay,
+    planningMode: Boolean,
+    onAddMeal: onAddMealCallback
+) {
     Column(
         modifier = Modifier.padding(start = 4.dp, end = 4.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -57,6 +60,7 @@ fun DayPlaning(day: PlaningDay, planningMode: Boolean) {
         )
         day.recipes.forEach { r -> DayMealPlaning(recipe = r) }
         Button(onClick = {
+
             /**
              * TODO :- Envoyer une requête pour ajouter la planification
              *       - Receptionner reponse
@@ -137,7 +141,11 @@ fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel
                                     DayPlaning(
                                         day = day,
                                         planningMode = viewModel.planningMode.observeAsState().value
-                                            ?: false
+                                            ?: false,
+                                        onAddMeal = { id, date ->
+                                            viewModel.addToPlaning(id, date)
+
+                                        }
                                     )
                                 }
                             }
