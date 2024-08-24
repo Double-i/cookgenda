@@ -34,7 +34,6 @@ import androidx.navigation.NavHostController
 import ch.morgias.cookgenda.android.R
 import ch.morgias.cookgenda.android.models.PlaningDay
 import ch.morgias.cookgenda.android.models.Recipe
-import ch.morgias.cookgenda.android.models.createWeekPlaning
 import ch.morgias.cookgenda.android.network.RequestState
 import ch.morgias.cookgenda.android.ui.screens.common.ErrorLoading
 import ch.morgias.cookgenda.android.ui.screens.common.Loading
@@ -56,7 +55,7 @@ fun DayPlaning(day: PlaningDay, planningMode: Boolean) {
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
         )
-        day.recipe.forEach { r -> DayMealPlaning(recipe = r) }
+        day.recipes.forEach { r -> DayMealPlaning(recipe = r) }
         Button(onClick = {
             /**
              * TODO :- Envoyer une requête pour ajouter la planification
@@ -121,15 +120,19 @@ fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel
             )
         }
         HorizontalPager(state = pager) { page ->
-            viewModel.getPlannedRecipeForSpecificWeek(page)
-            when (viewModel.planningUiState.collectAsState().value) {
+            viewModel.getPlannedRecipeForSpecificWeek(
+                viewModel.selectedMonday,
+                viewModel.selectedMonday.plusDays(6)
+            )
+            when (val state = viewModel.planningUiState.collectAsState().value) {
                 RequestState.Error -> ErrorLoading()
                 RequestState.Loading -> Loading()
                 is RequestState.Success<*> -> {
+                    val days = (state as RequestState.Success<List<PlaningDay>>).result
                     Column {
                         Row {
                             LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                                items(createWeekPlaning(page)) { day ->
+                                items(days) { day ->
 
                                     DayPlaning(
                                         day = day,
