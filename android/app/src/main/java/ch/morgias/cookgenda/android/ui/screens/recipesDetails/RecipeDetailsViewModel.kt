@@ -14,9 +14,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.time.DayOfWeek
+import java.time.LocalDate
+
 
 class RecipeDetailsViewModel : ViewModel() {
     private var _selectedRecipe: MutableLiveData<RecipeDetails> = MutableLiveData()
+    var selectedMonday = LocalDate.now().with(DayOfWeek.MONDAY)
+    fun changeMonday(offsetFromToday: Long) {
+        selectedMonday = selectedMonday.plusDays(offsetFromToday * 7)
+    }
+
+
     val planningMode: LiveData<Boolean> = _selectedRecipe.switchMap { recipe ->
         MutableLiveData(recipe != null)
     }
@@ -37,10 +46,10 @@ class RecipeDetailsViewModel : ViewModel() {
         _selectedRecipe.value = recipe
     }
 
-    fun getPlannedRecipeForSpecificWeek(week: Int) {
+    fun getPlannedRecipeForSpecificWeek(from: LocalDate, to: LocalDate) {
         viewModelScope.launch {
             _planningUiState.value = try {
-                RequestState.Success(PlaningApi.retrofitService.getPlaningForWeek(week))
+                RequestState.Success(PlaningApi.retrofitService.getPlaningForWeek(from, to))
             } catch (ex: Exception) {
                 Log.e("planning", ex.message!!, ex.cause)
                 RequestState.Error
