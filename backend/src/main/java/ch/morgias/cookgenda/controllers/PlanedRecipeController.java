@@ -32,20 +32,20 @@ public class PlanedRecipeController {
         Collection<PlanedRecipe> t = planedRecipeService.findPlanedRecipeByPeriod(from.atStartOfDay(), to.atTime(LocalTime.MAX));
         // TODO déplacer dans un endroit plus approprié (mapper ? service)
         Map<Long, List<PlanedRecipe>> map = new HashMap<>();
-        for (PlanedRecipe t2 : t) {
-            LocalDate d = LocalDate.from(from);
-            while (d.isBefore(to)) {
-                // Create a list if not exists (we want empty list for empty days)
-                if (!map.containsKey(d.toEpochDay())) {
-                    map.put(d.toEpochDay(), new ArrayList<>());
-                }
+
+        LocalDate d = LocalDate.from(from);
+        while (d.isBefore(to)) {
+            if (!map.containsKey(d.toEpochDay())) {
+                map.put(d.toEpochDay(), new ArrayList<>());
+            }
+            // Create a list if not exists (we want empty list for empty days)
+            for (PlanedRecipe t2 : t) {
                 if (!t2.getPlanedDate().toLocalDate().equals(d)) {
-                    d = d.plusDays(1);
                     continue;
                 }
                 map.get(d.toEpochDay()).add(t2);
-                d = d.plusDays(1);
             }
+            d = d.plusDays(1);
 
         }
 
