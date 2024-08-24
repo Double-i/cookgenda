@@ -31,20 +31,22 @@ public class PlanedRecipeController {
                                                       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime to) {
         Collection<PlanedRecipe> t = planedRecipeService.findPlanedRecipeByPeriod(from, to);
         // TODO déplacer dans un endroit plus approprié (mapper ? service)
-        LocalDate d = LocalDate.from(from);
         Map<Long, List<PlanedRecipe>> map = new HashMap<>();
         for (PlanedRecipe t2 : t) {
-            while (d.isAfter(to.toLocalDate())) {
+            LocalDate d = LocalDate.from(from);
+            while (d.isBefore(to.toLocalDate())) {
                 // Create a list if not exists (we want empty list for empty days)
                 if (!map.containsKey(d.toEpochDay())) {
                     map.put(d.toEpochDay(), new ArrayList<>());
                 }
                 if (!t2.getPlanedDate().toLocalDate().equals(d)) {
+                    d = d.plusDays(1);
                     continue;
                 }
                 map.get(d.toEpochDay()).add(t2);
+                d = d.plusDays(1);
             }
-            d = d.plusDays(1);
+
         }
 
         return PlanedRecipeMapper.INSTANCE.toPlanedRecipeDtoV2List(map);
