@@ -2,11 +2,15 @@ package ch.morgias.cookgenda.android.network
 
 import ch.morgias.cookgenda.android.models.PlaningDay
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
+import java.time.LocalDate
 
 interface PlaningApiService {
-    @GET("week/{week}/planing")
-    suspend fun getPlaningForWeek(@Path("week") id: Int): List<PlaningDay>
+    @GET("planedRecipes")
+    suspend fun getPlaningForWeek(
+        @Query("from") from: LocalDate,
+        @Query("to") to: LocalDate
+    ): List<PlaningDay>
 }
 
 object PlaningApi {
