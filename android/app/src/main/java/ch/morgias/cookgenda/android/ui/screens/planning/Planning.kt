@@ -121,8 +121,8 @@ fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel
         }
         HorizontalPager(state = pager) { page ->
             viewModel.getPlannedRecipeForSpecificWeek(
-                viewModel.selectedMonday,
-                viewModel.selectedMonday.plusDays(6)
+                viewModel.selectedMonday.plusDays(page * 7L),
+                viewModel.selectedMonday.plusDays(page * 7L + 6L)
             )
             when (val state = viewModel.planningUiState.collectAsState().value) {
                 RequestState.Error -> ErrorLoading()
