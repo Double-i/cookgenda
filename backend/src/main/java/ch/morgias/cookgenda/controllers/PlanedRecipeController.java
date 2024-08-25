@@ -22,8 +22,8 @@ public class PlanedRecipeController {
     private final PlanedRecipeService planedRecipeService;
 
     @PostMapping(Routes.PLANED_RECIPE_CREATE)
-    public PlanedRecipeDto plannedRecipe(@PathVariable Long recipeId, @RequestBody EditPlanedRecipeDto planedRecipeDto) {
-        return PlanedRecipeMapper.INSTANCE.toPlanedRecipeDto(planedRecipeService.planRecipe(recipeId, planedRecipeDto));
+    public PlanedRecipeDto plannedRecipe(@RequestBody EditPlanedRecipeDto planedRecipeDto) {
+        return PlanedRecipeMapper.INSTANCE.toPlanedRecipeDto(planedRecipeService.planRecipe(planedRecipeDto));
     }
 
     @GetMapping(Routes.PLANED_RECIPE_INDEX_PERIOD)
@@ -40,7 +40,7 @@ public class PlanedRecipeController {
             }
             // Create a list if not exists (we want empty list for empty days)
             for (PlanedRecipe t2 : t) {
-                if (!t2.getPlanedDate().toLocalDate().equals(d)) {
+                if (!t2.getDate().toLocalDate().equals(d)) {
                     continue;
                 }
                 map.get(d.toEpochDay()).add(t2);
