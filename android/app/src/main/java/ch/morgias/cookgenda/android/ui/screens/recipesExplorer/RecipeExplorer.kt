@@ -34,19 +34,6 @@ import ch.morgias.cookgenda.android.network.RequestState
 import ch.morgias.cookgenda.android.ui.screens.common.ErrorLoading
 import ch.morgias.cookgenda.android.ui.screens.common.Loading
 
-val list = listOf<Recipe>(
-    Recipe(1, "test"),
-    Recipe(1, "test"),
-    Recipe(1, "test"),
-    Recipe(1, "test"),
-    Recipe(1, "test"),
-    Recipe(1, "test"),
-    Recipe(1, "test"),
-    Recipe(1, "test"),
-    Recipe(1, "test"),
-    Recipe(1, "test"),
-    Recipe(1, "test"),
-)
 
 @Composable
 fun RecipesList(navController: NavHostController, viewModel: RecipeViewModel) {
