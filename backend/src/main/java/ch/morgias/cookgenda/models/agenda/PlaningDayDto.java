@@ -1,5 +1,6 @@
 package ch.morgias.cookgenda.models.agenda;
 
+import ch.morgias.cookgenda.models.agenda.dto.PlanedRecipeDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,5 +11,5 @@ import java.util.List;
 @Setter
 public class PlaningDayDto {
     private LocalDateTime date;
-    private List<PlanedRecipeV2Dto> recipes;
+    private List<PlanedRecipeDto> recipes;
 }

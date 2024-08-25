@@ -1,7 +1,6 @@
 package ch.morgias.cookgenda.models.agenda.dto.mappers;
 
 import ch.morgias.cookgenda.models.agenda.PlanedRecipe;
-import ch.morgias.cookgenda.models.agenda.PlanedRecipeV2Dto;
 import ch.morgias.cookgenda.models.agenda.PlaningDayDto;
 import ch.morgias.cookgenda.models.agenda.dto.EditPlanedRecipeDto;
 import ch.morgias.cookgenda.models.agenda.dto.PlanedRecipeDto;
@@ -20,18 +19,21 @@ import java.util.Map;
 public interface PlanedRecipeMapper {
     PlanedRecipeMapper INSTANCE = Mappers.getMapper(PlanedRecipeMapper.class);
     PlanedRecipe toPlanedRecipe(EditPlanedRecipeDto editPlanedRecipeDto);
+
+    @Mapping(source = "id", target = "planedRecipeId")
+    @Mapping(source = "recipe.id", target = "recipeId")
+    @Mapping(source = "recipe.name", target = "name")
     PlanedRecipeDto toPlanedRecipeDto(PlanedRecipe planedRecipe);
 
     @Mapping(source = "recipe.name", target = "name")
-    PlanedRecipeV2Dto toPlanedRecipeDtoV2(PlanedRecipe planedRecipe);
-    Collection<PlanedRecipeDto> toPlanedRecipeDtoList(Collection<PlanedRecipe> planedRecipes);
+
     default Collection<PlaningDayDto> toPlanedRecipeDtoV2List(Map<Long, List<PlanedRecipe>> planedRecipes){
         List<PlaningDayDto> result = new ArrayList<>();
         for (Map.Entry<Long, List<PlanedRecipe>> planingDay : planedRecipes.entrySet()) {
             LocalDate date = LocalDate.ofEpochDay(planingDay.getKey());
             PlaningDayDto dto = new PlaningDayDto();
             dto.setDate(date.atStartOfDay());
-            dto.setRecipes(planingDay.getValue().stream().map(INSTANCE::toPlanedRecipeDtoV2).toList());
+            dto.setRecipes(planingDay.getValue().stream().map(INSTANCE::toPlanedRecipeDto).toList());
             result.add(dto);
         }
         return result;
