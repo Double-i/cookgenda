@@ -11,7 +11,7 @@ data class PlaningDay(
 
     @Serializable(with = LocalDateTimeSerializer::class)
     @Contextual val date: LocalDateTime,
-    val recipes: List<Recipe>
+    var recipes: List<Recipe>
 )
 
 fun createWeekPlaning(page: Int): List<PlaningDay> {
