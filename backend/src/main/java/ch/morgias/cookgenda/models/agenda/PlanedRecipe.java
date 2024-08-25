@@ -16,5 +16,5 @@ public class PlanedRecipe {
     private Long id;
     @ManyToOne
     private Recipe recipe;
-    private LocalDateTime planedDate;
+    private LocalDateTime date;
 }

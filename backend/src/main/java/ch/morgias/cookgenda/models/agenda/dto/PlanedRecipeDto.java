@@ -12,6 +12,6 @@ import java.time.LocalDateTime;
 public class PlanedRecipeDto {
     Long id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime planedDate;
+    LocalDateTime date;
     RecipeNameDto recipe;
 }

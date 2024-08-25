@@ -11,12 +11,12 @@ import java.util.List;
 public interface PlanedRecipeRepository extends JpaRepository<PlanedRecipe, Long> {
     @Query("select pr from PlanedRecipe pr " +
             "join fetch pr.recipe " +
-            "where pr.planedDate between :to and :from ")
+            "where pr.date between :to and :from ")
     List<PlanedRecipe> findByPeriod(LocalDateTime to, LocalDateTime from);
     @Query("select pr from PlanedRecipe pr " +
             "left join fetch pr.recipe r " +
             "left join fetch r.recipeFoods rf " +
             "left join fetch rf.food f " +
-            "where pr.planedDate between :to and :from ")
+            "where pr.date between :to and :from ")
     Collection<PlanedRecipe> findByPeriodWithFoods(LocalDateTime to, LocalDateTime from);
 }
