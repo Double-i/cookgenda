@@ -41,7 +41,7 @@ import ch.morgias.cookgenda.android.ui.screens.recipesDetails.RecipeDetailsViewM
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-typealias onAddMealCallback = (recipeId: Int, date: LocalDate) -> Unit
+typealias onAddMealCallback = (date: LocalDate) -> Unit
 
 @Composable
 fun DayPlaning(
@@ -60,7 +60,7 @@ fun DayPlaning(
         )
         day.recipes.forEach { r -> DayMealPlaning(recipe = r) }
         Button(onClick = {
-
+            onAddMeal(day.date.toLocalDate())
             /**
              * TODO :- Envoyer une requête pour ajouter la planification
              *       - Receptionner reponse
@@ -142,8 +142,12 @@ fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel
                                         day = day,
                                         planningMode = viewModel.planningMode.observeAsState().value
                                             ?: false,
-                                        onAddMeal = { id, date ->
-                                            viewModel.addToPlaning(id, date)
+                                        onAddMeal = { date ->
+                                            viewModel.selectedRecipe.value?.let {
+                                                viewModel.addToPlaning(
+                                                    it.id, date
+                                                )
+                                            }
 
                                         }
                                     )
