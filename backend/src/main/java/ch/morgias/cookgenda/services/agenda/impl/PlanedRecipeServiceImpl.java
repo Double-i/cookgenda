@@ -43,7 +43,7 @@ public class PlanedRecipeServiceImpl implements PlanedRecipeService {
 
     @Override
     public void deletePlanedRecipeById(Long recipeId) {
-
+        planedRecipeRepository.deleteById(recipeId);
     }
 
     @Override

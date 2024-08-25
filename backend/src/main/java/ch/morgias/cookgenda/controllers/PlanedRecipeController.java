@@ -26,6 +26,11 @@ public class PlanedRecipeController {
         return PlanedRecipeMapper.INSTANCE.toPlanedRecipeDto(planedRecipeService.planRecipe(planedRecipeDto));
     }
 
+    @DeleteMapping(Routes.PLANED_RECIPE_SPECIFIC)
+    public void deletePlanedRecipe(@PathVariable Long planedRecipeId) {
+        planedRecipeService.deletePlanedRecipeById(planedRecipeId);
+    }
+
     @GetMapping(Routes.PLANED_RECIPE_INDEX_PERIOD)
     public Collection<PlaningDayDto> getPlannedRecipe(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate from,
                                                       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate to) {
