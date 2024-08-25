@@ -22,8 +22,8 @@ public class PlanedRecipeServiceImpl implements PlanedRecipeService {
     private final RecipeService recipeService;
 
     @Override
-    public PlanedRecipe planRecipe(Long recipeId, EditPlanedRecipeDto editPlanedRecipeDto) {
-        Recipe recipe = recipeService.findRecipeById(recipeId);
+    public PlanedRecipe planRecipe(EditPlanedRecipeDto editPlanedRecipeDto) {
+        Recipe recipe = recipeService.findRecipeById(editPlanedRecipeDto.getRecipeId());
         PlanedRecipe planedRecipe = PlanedRecipeMapper.INSTANCE.toPlanedRecipe(editPlanedRecipeDto);
         planedRecipe.setRecipe(recipe);
         planedRecipeRepository.save(planedRecipe);

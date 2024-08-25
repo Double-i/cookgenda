@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public interface PlanedRecipeService {
 
-    PlanedRecipe planRecipe(Long recipeId, EditPlanedRecipeDto recipeDto);
+    PlanedRecipe planRecipe(EditPlanedRecipeDto recipeDto);
 
     PlanedRecipe findPlanedRecipeById(Long recipeId);
 
