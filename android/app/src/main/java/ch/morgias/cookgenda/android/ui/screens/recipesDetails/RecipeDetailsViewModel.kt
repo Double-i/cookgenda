@@ -6,7 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
+import ch.morgias.cookgenda.android.models.PlaningDay
+import ch.morgias.cookgenda.android.models.Recipe
 import ch.morgias.cookgenda.android.models.RecipeDetails
+import ch.morgias.cookgenda.android.models.dto.NewPlanedRecipeDto
 import ch.morgias.cookgenda.android.network.PlaningApi
 import ch.morgias.cookgenda.android.network.RecipeApi
 import ch.morgias.cookgenda.android.network.RequestState
@@ -70,6 +73,26 @@ class RecipeDetailsViewModel : ViewModel() {
     }
 
     fun addToPlaning(id: Int, date: LocalDate) {
-        TODO("Not yet implemented")
+        viewModelScope.launch {
+            _planningUiState.value = try {
+                val t2 = PlaningApi.retrofitService.planRecipe(
+                    NewPlanedRecipeDto(
+                        id,
+                        date.atStartOfDay()
+                    )
+                );
+                val t = _planningUiState.value as List<PlaningDay>
+
+                t.find { it.date.equals(date) }?.let {
+                    val v = it.recipes.toMutableList()
+                    v.add(Recipe(id, t2.name))
+                    it.recipes = v
+                }
+                RequestState.Success(_planningUiState.value)
+            } catch (ex: Exception) {
+                Log.e("t", ex.message!!, ex.cause)
+                RequestState.Error
+            }
+        }
     }
 }
