@@ -1,7 +1,7 @@
 package ch.morgias.cookgenda.android.network
 
+import ch.morgias.cookgenda.android.models.PlanedRecipe
 import ch.morgias.cookgenda.android.models.PlaningDay
-import ch.morgias.cookgenda.android.models.Recipe
 import ch.morgias.cookgenda.android.models.dto.NewPlanedRecipeDto
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -17,7 +17,7 @@ interface PlaningApiService {
     ): List<PlaningDay>
 
     @POST("planedRecipes")
-    suspend fun planRecipe(@Body newPlanedRecipe: NewPlanedRecipeDto): Recipe
+    suspend fun planRecipe(@Body newPlanedRecipe: NewPlanedRecipeDto): PlanedRecipe
 }
 
 object PlaningApi {

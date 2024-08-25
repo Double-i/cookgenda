@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
+import ch.morgias.cookgenda.android.models.PlanedRecipe
 import ch.morgias.cookgenda.android.models.PlaningDay
-import ch.morgias.cookgenda.android.models.Recipe
 import ch.morgias.cookgenda.android.models.RecipeDetails
 import ch.morgias.cookgenda.android.models.dto.NewPlanedRecipeDto
 import ch.morgias.cookgenda.android.network.PlaningApi
@@ -72,12 +72,12 @@ class RecipeDetailsViewModel : ViewModel() {
         }
     }
 
-    fun addToPlaning(id: Int, date: LocalDate) {
+    fun addToPlaning(recipeId: Int, date: LocalDate) {
         viewModelScope.launch {
             _planningUiState.value = try {
                 val t2 = PlaningApi.retrofitService.planRecipe(
                     NewPlanedRecipeDto(
-                        id,
+                        recipeId,
                         date.atStartOfDay()
                     )
                 );
@@ -85,7 +85,7 @@ class RecipeDetailsViewModel : ViewModel() {
 
                 t.find { it.date.equals(date) }?.let {
                     val v = it.recipes.toMutableList()
-                    v.add(Recipe(id, t2.name))
+                    v.add(PlanedRecipe(recipeId, t2.planedRecipeId, t2.name, t2.date))
                     it.recipes = v
                 }
                 RequestState.Success(_planningUiState.value)

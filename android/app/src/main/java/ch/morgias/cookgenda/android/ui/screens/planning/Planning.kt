@@ -1,8 +1,11 @@
 package ch.morgias.cookgenda.android.ui.screens.planning
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,13 +20,18 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowForward
+import androidx.compose.material.icons.automirrored.rounded.List
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -32,8 +40,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import ch.morgias.cookgenda.android.R
+import ch.morgias.cookgenda.android.models.PlanedRecipe
 import ch.morgias.cookgenda.android.models.PlaningDay
-import ch.morgias.cookgenda.android.models.Recipe
 import ch.morgias.cookgenda.android.network.RequestState
 import ch.morgias.cookgenda.android.ui.screens.common.ErrorLoading
 import ch.morgias.cookgenda.android.ui.screens.common.Loading
@@ -61,19 +69,16 @@ fun DayPlaning(
         day.recipes.forEach { r -> DayMealPlaning(recipe = r) }
         Button(onClick = {
             onAddMeal(day.date.toLocalDate())
-            /**
-             * TODO :- Envoyer une requête pour ajouter la planification
-             *       - Receptionner reponse
-             *       - mettre à jour (idéalement) le jour
-             */
         }, modifier = Modifier.fillMaxWidth()) {
             Text(text = if (planningMode) "Planifier " else "Ajouter")
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun DayMealPlaning(recipe: Recipe) {
+fun DayMealPlaning(recipe: PlanedRecipe) {
+    var value by remember { mutableStateOf(false) }
     val shape = RoundedCornerShape(20)
     Row(
         modifier = Modifier
@@ -81,7 +86,15 @@ fun DayMealPlaning(recipe: Recipe) {
             .shadow(4.dp, shape)
             .background(color = Color.Green)
             .height(79.dp)
+            .combinedClickable(
+                onClick = { },
+                onLongClick = {
+                    value = !value
+                    Log.i("test", "VALUE $value")
+                },
+            )
     ) {
+
         Image(
             painter = painterResource(id = R.drawable.recipe),
             "Recipe image",
@@ -103,11 +116,22 @@ fun DayMealPlaning(recipe: Recipe) {
                 .height(79.dp)
                 .padding(9.dp), verticalArrangement = Arrangement.Center
         ) {
-            Icon(
+            Log.i("test", "VALUE")
+            when (value) {
+                true -> Icon(
+                    Icons.AutoMirrored.Rounded.List,
+                    contentDescription = "test",
+                    modifier = Modifier.clickable {
 
-                Icons.AutoMirrored.Rounded.ArrowForward,
-                contentDescription = "test"
-            )
+                    }
+                )
+
+                false -> Icon(
+                    Icons.AutoMirrored.Rounded.ArrowForward,
+                    contentDescription = "test"
+                )
+            }
+
         }
     }
 }
