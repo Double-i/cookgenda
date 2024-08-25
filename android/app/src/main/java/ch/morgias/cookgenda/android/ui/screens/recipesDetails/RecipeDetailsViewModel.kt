@@ -95,4 +95,23 @@ class RecipeDetailsViewModel : ViewModel() {
             }
         }
     }
+
+    fun deletePlanedRecipe(planedRecipeId: Int) {
+        viewModelScope.launch {
+            _planningUiState.value = try {
+                PlaningApi.retrofitService.deletePlanedRecipe(planedRecipeId);
+                val planingDaysList = _planningUiState.value as List<PlaningDay>
+
+                planingDaysList.forEach { planingDay ->
+                    planingDay.recipes = planingDay.recipes.filter { planedRecipe ->
+                        planedRecipe.planedRecipeId != planedRecipeId
+                    }
+                }
+                RequestState.Success(_planningUiState.value)
+            } catch (ex: Exception) {
+                Log.e("t", ex.message!!, ex.cause)
+                RequestState.Error
+            }
+        }
+    }
 }

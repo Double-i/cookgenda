@@ -4,8 +4,10 @@ import ch.morgias.cookgenda.android.models.PlanedRecipe
 import ch.morgias.cookgenda.android.models.PlaningDay
 import ch.morgias.cookgenda.android.models.dto.NewPlanedRecipeDto
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 import java.time.LocalDate
 
@@ -18,6 +20,9 @@ interface PlaningApiService {
 
     @POST("planedRecipes")
     suspend fun planRecipe(@Body newPlanedRecipe: NewPlanedRecipeDto): PlanedRecipe
+
+    @DELETE("planedRecipes/{planedRecipeId}")
+    suspend fun deletePlanedRecipe(@Path("planedRecipeId") planedRecipeId: Int)
 }
 
 object PlaningApi {

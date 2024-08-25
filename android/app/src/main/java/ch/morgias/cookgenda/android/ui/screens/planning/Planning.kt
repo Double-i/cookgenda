@@ -50,12 +50,15 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 typealias onAddMealCallback = (date: LocalDate) -> Unit
+typealias onDeleteMealCallback = (planedRecipeId: Int) -> Unit
+
 
 @Composable
 fun DayPlaning(
     day: PlaningDay,
     planningMode: Boolean,
-    onAddMeal: onAddMealCallback
+    onAddMeal: onAddMealCallback,
+    onDeleteMeal: onDeleteMealCallback
 ) {
     Column(
         modifier = Modifier.padding(start = 4.dp, end = 4.dp),
@@ -66,7 +69,7 @@ fun DayPlaning(
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
         )
-        day.recipes.forEach { r -> DayMealPlaning(recipe = r) }
+        day.recipes.forEach { r -> DayMealPlaning(recipe = r, onDeleteMeal) }
         Button(onClick = {
             onAddMeal(day.date.toLocalDate())
         }, modifier = Modifier.fillMaxWidth()) {
@@ -77,7 +80,7 @@ fun DayPlaning(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun DayMealPlaning(recipe: PlanedRecipe) {
+fun DayMealPlaning(recipe: PlanedRecipe, onDeleteMeal: onDeleteMealCallback) {
     var value by remember { mutableStateOf(false) }
     val shape = RoundedCornerShape(20)
     Row(
@@ -122,7 +125,7 @@ fun DayMealPlaning(recipe: PlanedRecipe) {
                     Icons.AutoMirrored.Rounded.List,
                     contentDescription = "test",
                     modifier = Modifier.clickable {
-
+                        onDeleteMeal(recipe.planedRecipeId)
                     }
                 )
 
@@ -172,7 +175,9 @@ fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel
                                                     it.id, date
                                                 )
                                             }
-
+                                        },
+                                        onDeleteMeal = {
+                                            viewModel.deletePlanedRecipe(it)
                                         }
                                     )
                                 }
