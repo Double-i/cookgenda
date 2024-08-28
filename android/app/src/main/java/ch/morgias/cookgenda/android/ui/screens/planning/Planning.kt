@@ -33,6 +33,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -118,21 +119,19 @@ fun DayMealPlaning(recipe: PlanedRecipe, onDeleteMeal: onDeleteMealCallback) {
         Column(
             modifier = Modifier
                 .height(79.dp)
-                .padding(9.dp), verticalArrangement = Arrangement.Center
+                .padding(9.dp),
+            verticalArrangement = Arrangement.Center
         ) {
             Log.i("test", "VALUE")
             when (value) {
-                true -> Icon(
-                    Icons.AutoMirrored.Rounded.List,
+                true -> Icon(Icons.AutoMirrored.Rounded.List,
                     contentDescription = "test",
                     modifier = Modifier.clickable {
                         onDeleteMeal(recipe.planedRecipeId)
-                    }
-                )
+                    })
 
                 false -> Icon(
-                    Icons.AutoMirrored.Rounded.ArrowForward,
-                    contentDescription = "test"
+                    Icons.AutoMirrored.Rounded.ArrowForward, contentDescription = "test"
                 )
             }
 
@@ -156,13 +155,35 @@ fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel
     Column {
         var t = viewModel.selectedRecipe.observeAsState().value
         viewModel.selectedRecipe.observeAsState().value?.let {
-            Text(
-                text = "Ajouter la recette : ${it.name}"
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp)
+
+                    .background(MaterialTheme.colorScheme.secondaryContainer)
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .padding(start = 4.dp, end = 4.dp)
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Ajouter la recette : ${it.name}",
+                        modifier = Modifier.padding(start = 2.dp)
+                    )
+                    Icon(Icons.AutoMirrored.Rounded.List,
+                        contentDescription = "test",
+                        modifier = Modifier.clickable {
+                            viewModel.removeSelection()
+                        })
+                }
+            }
         }
         HorizontalPager(state = pager) { page ->
 
-        when (val state = viewModel.planningUiState.collectAsState().value) {
+            when (val state = viewModel.planningUiState.collectAsState().value) {
                 RequestState.Error -> ErrorLoading()
                 RequestState.Loading -> Loading()
                 is RequestState.Success<*> -> {
@@ -172,8 +193,7 @@ fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel
                             LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                                 items(days) { day ->
 
-                                    DayPlaning(
-                                        day = day,
+                                    DayPlaning(day = day,
                                         planningMode = viewModel.planningMode.observeAsState().value
                                             ?: false,
                                         onAddMeal = { date ->
@@ -185,8 +205,7 @@ fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel
                                         },
                                         onDeleteMeal = {
                                             viewModel.deletePlanedRecipe(it)
-                                        }
-                                    )
+                                        })
                                 }
                             }
                         }

@@ -22,7 +22,7 @@ import java.time.LocalDate
 
 
 class RecipeDetailsViewModel : ViewModel() {
-    private var _selectedRecipe: MutableLiveData<RecipeDetails> = MutableLiveData()
+    private var _selectedRecipe: MutableLiveData<RecipeDetails?> = MutableLiveData()
     var selectedMonday = LocalDate.now().with(DayOfWeek.MONDAY)
     fun changeMonday(offsetFromToday: Long) {
         selectedMonday = selectedMonday.plusDays(offsetFromToday * 7)
@@ -113,5 +113,9 @@ class RecipeDetailsViewModel : ViewModel() {
                 RequestState.Error
             }
         }
+    }
+
+    fun removeSelection() {
+        _selectedRecipe.value = null
     }
 }
