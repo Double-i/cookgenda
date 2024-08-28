@@ -26,6 +26,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -143,6 +144,15 @@ fun DayMealPlaning(recipe: PlanedRecipe, onDeleteMeal: onDeleteMealCallback) {
 @Composable
 fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel) {
     val pager = rememberPagerState(pageCount = { 5 })
+    LaunchedEffect(pager.currentPage) {
+
+
+        viewModel.getPlannedRecipeForSpecificWeek(
+            viewModel.selectedMonday.plusDays(pager.currentPage * 7L),
+            viewModel.selectedMonday.plusDays(pager.currentPage * 7L + 6L)
+        )
+
+    }
     Column {
         var t = viewModel.selectedRecipe.observeAsState().value
         viewModel.selectedRecipe.observeAsState().value?.let {
@@ -151,11 +161,8 @@ fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel
             )
         }
         HorizontalPager(state = pager) { page ->
-            viewModel.getPlannedRecipeForSpecificWeek(
-                viewModel.selectedMonday.plusDays(page * 7L),
-                viewModel.selectedMonday.plusDays(page * 7L + 6L)
-            )
-            when (val state = viewModel.planningUiState.collectAsState().value) {
+
+        when (val state = viewModel.planningUiState.collectAsState().value) {
                 RequestState.Error -> ErrorLoading()
                 RequestState.Loading -> Loading()
                 is RequestState.Success<*> -> {
