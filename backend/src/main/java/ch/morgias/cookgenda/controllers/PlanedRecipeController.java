@@ -22,7 +22,7 @@ public class PlanedRecipeController {
     private final PlanedRecipeService planedRecipeService;
 
     @PostMapping(Routes.PLANED_RECIPE_CREATE)
-    public PlanedRecipeDto plannedRecipe(@RequestBody EditPlanedRecipeDto planedRecipeDto) {
+    public PlanedRecipeDto planedRecipe(@RequestBody EditPlanedRecipeDto planedRecipeDto) {
         return PlanedRecipeMapper.INSTANCE.toPlanedRecipeDto(planedRecipeService.planRecipe(planedRecipeDto));
     }
 
@@ -32,8 +32,8 @@ public class PlanedRecipeController {
     }
 
     @GetMapping(Routes.PLANED_RECIPE_INDEX_PERIOD)
-    public Collection<PlaningDayDto> getPlannedRecipe(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate from,
-                                                      @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate to) {
+    public Collection<PlaningDayDto> getPlanedRecipe(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate from,
+                                                     @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate to) {
         Collection<PlanedRecipe> t = planedRecipeService.findPlanedRecipeByPeriod(from.atStartOfDay(), to.atTime(LocalTime.MAX));
         // TODO déplacer dans un endroit plus approprié (mapper ? service)
         Map<Long, List<PlanedRecipe>> map = new HashMap<>();
