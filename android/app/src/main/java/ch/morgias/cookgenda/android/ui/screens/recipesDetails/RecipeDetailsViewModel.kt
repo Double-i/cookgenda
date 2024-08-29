@@ -49,7 +49,7 @@ class RecipeDetailsViewModel : ViewModel() {
         _selectedRecipe.value = recipe
     }
 
-    fun getPlannedRecipeForSpecificWeek(from: LocalDate, to: LocalDate) {
+    fun getPlanedRecipeForSpecificWeek(from: LocalDate, to: LocalDate) {
         viewModelScope.launch {
             _planningUiState.value = try {
                 RequestState.Success(PlaningApi.retrofitService.getPlaningForWeek(from, to))

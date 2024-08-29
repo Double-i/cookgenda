@@ -143,7 +143,7 @@ fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel
     LaunchedEffect(pager.currentPage) {
 
 
-        viewModel.getPlannedRecipeForSpecificWeek(
+        viewModel.getPlanedRecipeForSpecificWeek(
             viewModel.selectedMonday.plusDays(pager.currentPage * 7L),
             viewModel.selectedMonday.plusDays(pager.currentPage * 7L + 6L)
         )
