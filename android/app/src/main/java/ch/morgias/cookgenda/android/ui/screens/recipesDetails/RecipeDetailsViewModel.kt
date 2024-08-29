@@ -81,14 +81,14 @@ class RecipeDetailsViewModel : ViewModel() {
                         date.atStartOfDay()
                     )
                 );
-                val t = _planningUiState.value as List<PlaningDay>
-
-                t.find { it.date.equals(date) }?.let {
+                val t = (_planningUiState.value as RequestState.Success<List<PlaningDay>>).result
+                _planningUiState.value = RequestState.Loading
+                t.find { it.date == date.atStartOfDay() }?.let {
                     val v = it.recipes.toMutableList()
                     v.add(PlanedRecipe(recipeId, t2.planedRecipeId, t2.name, t2.date))
                     it.recipes = v
                 }
-                RequestState.Success(_planningUiState.value)
+                RequestState.Success(t.toList()) // Have to call to toList to force firing re-render
             } catch (ex: Exception) {
                 Log.e("t", ex.message!!, ex.cause)
                 RequestState.Error

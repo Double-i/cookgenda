@@ -1,6 +1,5 @@
 package ch.morgias.cookgenda.android.ui.screens.planning
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -95,7 +94,6 @@ fun DayMealPlaning(recipe: PlanedRecipe, onDeleteMeal: onDeleteMealCallback) {
                 onClick = { },
                 onLongClick = {
                     value = !value
-                    Log.i("test", "VALUE $value")
                 },
             )
     ) {
@@ -122,7 +120,6 @@ fun DayMealPlaning(recipe: PlanedRecipe, onDeleteMeal: onDeleteMealCallback) {
                 .padding(9.dp),
             verticalArrangement = Arrangement.Center
         ) {
-            Log.i("test", "VALUE")
             when (value) {
                 true -> Icon(Icons.AutoMirrored.Rounded.List,
                     contentDescription = "test",
@@ -160,7 +157,6 @@ fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(40.dp)
-
                     .background(MaterialTheme.colorScheme.secondaryContainer)
             ) {
                 Row(
