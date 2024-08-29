@@ -66,6 +66,11 @@ dependencies {
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    // The view calendar library for Android
+    implementation("com.kizitonwose.calendar:view:2.5.4")
+
+    // The compose calendar library for Android
+    implementation("com.kizitonwose.calendar:compose:2.5.4")
 
     // Retrofit
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
