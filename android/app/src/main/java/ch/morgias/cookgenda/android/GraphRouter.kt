@@ -7,12 +7,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import ch.morgias.cookgenda.android.ui.screens.ShoppingList.ShoppingList
 import ch.morgias.cookgenda.android.ui.screens.planning.Planning
 import ch.morgias.cookgenda.android.ui.screens.recipesDetails.RecipeDetails
 import ch.morgias.cookgenda.android.ui.screens.recipesDetails.RecipeDetailsViewModel
 import ch.morgias.cookgenda.android.ui.screens.recipesExplorer.RecipeViewModel
 import ch.morgias.cookgenda.android.ui.screens.recipesExplorer.RecipesList
+import ch.morgias.cookgenda.android.ui.screens.shoppingList.ShoppingList
 
 @Composable
 fun GraphRouter(navController: NavHostController) {
