@@ -106,18 +106,23 @@ class RecipeDetailsViewModel : ViewModel() {
         viewModelScope.launch {
             _planningUiState.value = try {
                 PlaningApi.retrofitService.deletePlanedRecipe(planedRecipeId);
-                val planingDaysList = _planningUiState.value as List<PlaningDay>
+                val planingDaysList =
+                    (_planningUiState.value as RequestState.Success<List<PlaningDay>>).result
 
-                /*
-                 // TODO fix delete
-                 planingDaysList.forEach { planingDay ->
-                             planingDay.recipes = planingDay.recipes.filter { planedRecipe ->
-                                 planedRecipe.planedRecipeId != planedRecipeId
-                             }
-                         }*/
-                RequestState.Success(_planningUiState.value)
+                val newList = ArrayList<PlaningDay>()
+                planingDaysList.forEach { planingDay ->
+                    newList.add(
+                        PlaningDay(
+                            planingDay.date,
+                            planingDay.recipes.filter { planedRecipe ->
+                                planedRecipe.planedRecipeId != planedRecipeId
+                            })
+                    )
+
+                }
+                RequestState.Success(newList)
             } catch (ex: Exception) {
-                Log.e("t", ex.message!!, ex.cause)
+                Log.e("VM - deleting", ex.message!!, ex.cause)
                 RequestState.Error
             }
         }
