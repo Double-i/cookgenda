@@ -82,13 +82,19 @@ class RecipeDetailsViewModel : ViewModel() {
                     )
                 );
                 val t = (_planningUiState.value as RequestState.Success<List<PlaningDay>>).result
-                _planningUiState.value = RequestState.Loading
-                t.find { it.date == date.atStartOfDay() }?.let {
-                    val v = it.recipes.toMutableList()
-                    v.add(PlanedRecipe(recipeId, t2.planedRecipeId, t2.name, t2.date))
-                    it.recipes = v
+
+                val newList = ArrayList<PlaningDay>()
+                t.forEach {
+                    val recipes = ArrayList<PlanedRecipe>()
+                    recipes.addAll(it.recipes)
+                    if (it.date == date.atStartOfDay()) {
+                        recipes.add(PlanedRecipe(recipeId, t2.planedRecipeId, t2.name, t2.date))
+                    }
+                    newList.add(PlaningDay(it.date, recipes))
                 }
-                RequestState.Success(t.toList()) // Have to call to toList to force firing re-render
+
+                RequestState.Success(newList)
+
             } catch (ex: Exception) {
                 Log.e("t", ex.message!!, ex.cause)
                 RequestState.Error
@@ -102,11 +108,13 @@ class RecipeDetailsViewModel : ViewModel() {
                 PlaningApi.retrofitService.deletePlanedRecipe(planedRecipeId);
                 val planingDaysList = _planningUiState.value as List<PlaningDay>
 
-                planingDaysList.forEach { planingDay ->
-                    planingDay.recipes = planingDay.recipes.filter { planedRecipe ->
-                        planedRecipe.planedRecipeId != planedRecipeId
-                    }
-                }
+                /*
+                 // TODO fix delete
+                 planingDaysList.forEach { planingDay ->
+                             planingDay.recipes = planingDay.recipes.filter { planedRecipe ->
+                                 planedRecipe.planedRecipeId != planedRecipeId
+                             }
+                         }*/
                 RequestState.Success(_planningUiState.value)
             } catch (ex: Exception) {
                 Log.e("t", ex.message!!, ex.cause)

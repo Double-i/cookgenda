@@ -11,5 +11,5 @@ data class PlaningDay(
 
     @Serializable(with = LocalDateTimeSerializer::class)
     @Contextual val date: LocalDateTime,
-    var recipes: List<PlanedRecipe>
+    val recipes: List<PlanedRecipe>
 )
