@@ -82,7 +82,7 @@ fun DayPlaning(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DayMealPlaning(recipe: PlanedRecipe, onDeleteMeal: onDeleteMealCallback) {
-    var value by remember { mutableStateOf(false) }
+    var toggleDeletion by remember { mutableStateOf(false) }
     val shape = RoundedCornerShape(20)
     Row(
         modifier = Modifier
@@ -93,7 +93,7 @@ fun DayMealPlaning(recipe: PlanedRecipe, onDeleteMeal: onDeleteMealCallback) {
             .combinedClickable(
                 onClick = { },
                 onLongClick = {
-                    value = !value
+                    toggleDeletion = !toggleDeletion
                 },
             )
     ) {
@@ -120,11 +120,13 @@ fun DayMealPlaning(recipe: PlanedRecipe, onDeleteMeal: onDeleteMealCallback) {
                 .padding(9.dp),
             verticalArrangement = Arrangement.Center
         ) {
-            when (value) {
+            when (toggleDeletion) {
                 true -> Icon(Icons.AutoMirrored.Rounded.List,
                     contentDescription = "test",
                     modifier = Modifier.clickable {
+                        toggleDeletion = false
                         onDeleteMeal(recipe.planedRecipeId)
+
                     })
 
                 false -> Icon(
