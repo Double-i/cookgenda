@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,8 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -30,7 +27,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -105,16 +101,16 @@ fun ShoppingList() {
     val endMonth = remember { currentMonth.plusMonths(12) }
     val today = remember { LocalDate.now() }
     var selection by remember { mutableStateOf(DateSelection()) }
+    var hasSelection by remember { mutableStateOf(false) }
     val daysOfWeek = remember { daysOfWeek() }
     var visible by remember {
-        mutableStateOf(true)
+        mutableStateOf(false)
     }
 
     Column(modifier = Modifier.padding(2.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text("Liste des listes de courses", style = MaterialTheme.typography.titleLarge)
-        Text("Période")
-
-
+        Spacer(modifier = Modifier.height(30.dp))
+        HorizontalDivider()
 // Animated visibility will eventually remove the item from the composition once the animation has finished.
         AnimatedVisibility(visible) {
             // your composable here
@@ -139,42 +135,57 @@ fun ShoppingList() {
                             today = today,
                             selection = selection,
                         ) { day ->
-                            if (day.position == DayPosition.MonthDate &&
-                                (day.date == today || day.date.isAfter(today))
-                            ) {
-                                selection = getSelection(
-                                    clickedDate = day.date,
-                                    dateSelection = selection,
-                                )
-                            }
+
+                            selection = getSelection(
+                                clickedDate = day.date,
+                                dateSelection = selection,
+                            )
+                            hasSelection = selection.startDate != null && selection.endDate != null
+
                         }
                     },
                     monthHeader = { month -> MonthHeader(month) },
                 )
-            }
-            CalendarBottom(
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .fillMaxWidth()
-                    .background(Color.White),
-                selection = selection,
-                save = {
-                    val (startDate, endDate) = selection
-                    if (startDate != null && endDate != null) {
-                        Log.i("CALENDAR", "${startDate} - ${endDate}")
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Button(
+                        onClick = { /*TODO*/ },
+                        enabled = hasSelection,
+                        modifier = Modifier.weight(1F)
+                    ) {
+                        Text(text = "Générer")
+
                     }
-                },
-            )
+                    Button(onClick = {
+                        visible = false
+                    }, modifier = Modifier.weight(1F)) {
+                        Text(text = "Annuler")
+
+                    }
+                }
+            }
         }
 
-        Row {
-            Button(onClick = {
-                Log.i("test", "OCOUCOU")
-                visible = !visible
-            }) {
-                Text(text = "TEXT")
+        AnimatedVisibility(!visible) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Générer une nouvelle liste de course")
+                Button(onClick = {
+                    Log.i("test", "OCOUCOU")
+                    visible = !visible
+                }) {
+                    Text(text = "Générer")
+                }
             }
         }
+
+
+        HorizontalDivider()
     }
 }
 
@@ -210,30 +221,7 @@ private fun CalendarTop(
                 .padding(top = 6.dp, bottom = 10.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            Row(
-                modifier = Modifier.height(IntrinsicSize.Max),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
 
-                Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(percent = 50))
-                        .clickable(onClick = clearDates)
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
-                    text = "Clear",
-                    fontWeight = FontWeight.Medium,
-                    textAlign = TextAlign.End,
-
-                    )
-            }
-
-            Text(
-                modifier = Modifier.padding(horizontal = 14.dp),
-                text = "ICICi",
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp,
-            )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -266,11 +254,8 @@ private fun CalendarBottom(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
-                text = "€75 night",
-                fontWeight = FontWeight.Bold,
-            )
-            Spacer(modifier = Modifier.weight(1f))
+
+        Spacer(modifier = Modifier.weight(1f))
             Button(
                 modifier = Modifier
                     .height(40.dp)
