@@ -14,9 +14,8 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -183,9 +182,15 @@ fun ShoppingList() {
                 }
             }
         }
+        HorizontalDivider()
 
+        Text("Listes de course en cours", style = MaterialTheme.typography.titleMedium)
+        LazyColumn {
+
+        }
 
         HorizontalDivider()
+        Text("Anciennes listes de course", style = MaterialTheme.typography.titleMedium)
     }
 }
 
@@ -205,13 +210,11 @@ private fun MonthHeader(calendarMonth: CalendarMonth) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CalendarTop(
     modifier: Modifier = Modifier,
     daysOfWeek: List<DayOfWeek>,
     selection: DateSelection,
-
     clearDates: () -> Unit,
 ) {
     Column(modifier.fillMaxWidth()) {
@@ -239,32 +242,5 @@ private fun CalendarTop(
             }
         }
         HorizontalDivider()
-    }
-}
-
-@Composable
-private fun CalendarBottom(
-    modifier: Modifier = Modifier,
-    selection: DateSelection,
-    save: () -> Unit,
-) {
-    Column(modifier.fillMaxWidth()) {
-        HorizontalDivider()
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-
-        Spacer(modifier = Modifier.weight(1f))
-            Button(
-                modifier = Modifier
-                    .height(40.dp)
-                    .width(100.dp),
-                onClick = save,
-                enabled = selection.daysBetween != null,
-            ) {
-                Text(text = "Save")
-            }
-        }
     }
 }
