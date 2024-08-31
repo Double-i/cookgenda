@@ -4,6 +4,7 @@ import ch.morgias.cookgenda.infrastructure.Routes;
 import ch.morgias.cookgenda.models.shopping.dto.EditShoppingListFood;
 import ch.morgias.cookgenda.models.shopping.dto.ShoppingListDto;
 import ch.morgias.cookgenda.models.shopping.dto.ShoppingListFoodDto;
+import ch.morgias.cookgenda.models.shopping.dto.ShoppingListResumeDto;
 import ch.morgias.cookgenda.models.shopping.dto.mappers.ShoppingListFoodMapper;
 import ch.morgias.cookgenda.models.shopping.dto.mappers.ShoppingListMapper;
 import ch.morgias.cookgenda.services.shopping.ShoppingListService;
@@ -12,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,6 +25,11 @@ public class ShoppingListController {
     public ShoppingListDto generateShoppingList(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime from,
                                                 @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime to) {
         return ShoppingListMapper.INSTANCE.toShoppingListDto(shoppingListService.generateShoppingList(from, to));
+    }
+
+    @GetMapping(Routes.SHOPPING_LISTS)
+    public List<ShoppingListResumeDto> generateShoppingList() {
+        return ShoppingListMapper.INSTANCE.toShoppingListResumesDto(shoppingListService.getShoppingLists());
     }
 
     @PatchMapping(Routes.SHOPPING_LIST_FOOD_UPDATE)
