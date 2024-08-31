@@ -6,6 +6,7 @@ import ch.morgias.cookgenda.models.shopping.ShoppingListFood;
 import ch.morgias.cookgenda.models.shopping.dto.EditShoppingListFood;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface ShoppingListService {
 
@@ -20,4 +21,5 @@ public interface ShoppingListService {
 
     void deleteShoppingListFoodById(Long shoppingListFoodId);
 
+    List<ShoppingList> getShoppingLists();
 }

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -92,5 +93,10 @@ public class ShoppingListImpl implements ShoppingListService {
     @Override
     public void deleteShoppingListFoodById(Long shoppingListFoodId) {
         shoppingListItemRepository.delete(shoppingListItemRepository.getReferenceById(shoppingListFoodId));
+    }
+
+    @Override
+    public List<ShoppingList> getShoppingLists() {
+        return shoppingListRepository.findAllWithFoodList();
     }
 }
