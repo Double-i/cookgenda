@@ -15,11 +15,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.List
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,9 +36,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ch.morgias.cookgenda.android.models.ShoppingListResume
+import ch.morgias.cookgenda.android.network.RequestState
+import ch.morgias.cookgenda.android.ui.screens.common.ErrorLoading
+import ch.morgias.cookgenda.android.ui.screens.common.Loading
 import ch.morgias.cookgenda.android.ui.screens.common.calendar.ContinuousSelectionHelper.getSelection
 import ch.morgias.cookgenda.android.ui.screens.common.calendar.DateSelection
 import ch.morgias.cookgenda.android.ui.screens.common.calendar.displayText
+import ch.morgias.cookgenda.android.utils.dateFormatter
 import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.CalendarDay
@@ -94,7 +104,7 @@ private fun Day(
 }
 
 @Composable
-fun ShoppingList(vm: ShoppingListViewModel) {
+fun ShoppingList(viewModel: ShoppingListViewModel) {
     val currentMonth = remember { YearMonth.now() }
     val startMonth = remember { currentMonth }
     val endMonth = remember { currentMonth.plusMonths(12) }
@@ -185,12 +195,45 @@ fun ShoppingList(vm: ShoppingListViewModel) {
         HorizontalDivider()
 
         Text("Listes de course en cours", style = MaterialTheme.typography.titleMedium)
-        LazyColumn {
 
+        when (val state = viewModel.shoppingListUiState.collectAsState().value) {
+            RequestState.Error -> ErrorLoading()
+            RequestState.Loading -> Loading()
+            is RequestState.Success<*> -> {
+
+                LazyColumn(modifier = Modifier.padding(4.dp)) {
+                    items((state as RequestState.Success<List<ShoppingListResume>>).result) { recipe ->
+                        Row(
+                            modifier = Modifier
+                                .height(50.dp)
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+
+                        ) {
+                            Icon(
+                                Icons.AutoMirrored.Rounded.List,
+                                contentDescription = "test",
+                                modifier = Modifier.weight(1F)
+                            )
+                            Column(modifier = Modifier.weight(5F)) {
+                                Text(
+                                    "${recipe.fromDate.format(dateFormatter)} - ${
+                                        recipe.toDate.format(
+                                            dateFormatter
+                                        )
+                                    }",
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+                                Text(
+                                    "${recipe.numberOfCheckedFoods} / ${recipe.shoppingListSize}",
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                            }
+                        }
+                    }
+                }
+            }
         }
-
-        HorizontalDivider()
-        Text("Anciennes listes de course", style = MaterialTheme.typography.titleMedium)
     }
 }
 

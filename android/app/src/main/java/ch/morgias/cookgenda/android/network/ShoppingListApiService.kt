@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface ShoppingListApiService {
 
-    @GET("planedRecipes")
+    @GET("shoppingLists")
     suspend fun getShoppingListResumes(): List<ShoppingListResume>
 
 }
