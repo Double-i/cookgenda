@@ -14,7 +14,9 @@ public class ShoppingListFood {
     private Long id ;
     @ManyToOne
     private ShoppingList shoppingList;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Food food;
     private Double quantity;
+
+    private Boolean checked = false;
 }
