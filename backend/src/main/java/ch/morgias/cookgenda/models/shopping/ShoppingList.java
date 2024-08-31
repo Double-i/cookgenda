@@ -23,4 +23,14 @@ public class ShoppingList {
     private Set<ShoppingListFood> shoppingListFoods = new HashSet<>();
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
+
+    public int getShoppingListSize() {
+        return shoppingListFoods.size();
+    }
+
+    public int getNumberOfCheckedFoods() {
+        return (int) shoppingListFoods.stream()
+                .filter(ShoppingListFood::getChecked)
+                .count();
+    }
 }
