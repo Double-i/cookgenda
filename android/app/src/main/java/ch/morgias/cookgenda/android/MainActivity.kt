@@ -102,17 +102,17 @@ fun BottomMenu(
         BottomMenuItem(
             "Recettes",
             Icons.Outlined.Menu,
-            selected == Screen.RecipesListScreen.route,
+            selected == Screen.RecipesListResumesScreen.route,
 
             Modifier
                 .weight(1F)
                 .fillMaxHeight()
         ) {
-            if (selected == Screen.RecipesListScreen.route) {
+            if (selected == Screen.RecipesListResumesScreen.route) {
                 return@BottomMenuItem
             }
-            selected = Screen.RecipesListScreen.route
-            navController.navigate(Screen.RecipesListScreen.route)
+            selected = Screen.RecipesListResumesScreen.route
+            navController.navigate(Screen.RecipesListResumesScreen.route)
         }
         VerticalDivider(
             modifier = Modifier

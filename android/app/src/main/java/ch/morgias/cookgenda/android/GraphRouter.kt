@@ -18,7 +18,7 @@ import ch.morgias.cookgenda.android.ui.screens.shoppingList.ShoppingListsViewMod
 @Composable
 fun GraphRouter(navController: NavHostController) {
     val recipeDetailsVm = viewModel<RecipeDetailsViewModel>()
-    NavHost(navController = navController, startDestination = Screen.RecipesListScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.RecipesListResumesScreen.route) {
         composable(route = Screen.CourseListScreen.route) {
             val vm = viewModel<ShoppingListsViewModel>()
             ShoppingList(vm)
@@ -27,11 +27,17 @@ fun GraphRouter(navController: NavHostController) {
             Planning(navController, recipeDetailsVm)
         }
         composable(
-            route = Screen.RecipesListScreen.route,
+            route = Screen.RecipesListResumesScreen.route,
 
             ) {
             val vm = viewModel<RecipeViewModel>()
             RecipesList(navController, vm)
+        }
+        composable(
+            route = Screen.RecipeDetailsScreen.route,
+            arguments = listOf(navArgument("recipeId") { type = NavType.IntType })
+        ) {
+            RecipeDetails(navController, it.arguments!!.getInt("recipeId"), recipeDetailsVm)
         }
         composable(
             route = Screen.RecipeDetailsScreen.route,
