@@ -1,8 +1,7 @@
 package ch.morgias.cookgenda.android
 
 sealed class Screen(val route: String) {
-    object RecipesListResumesScreen : Screen(route = "recipesListResumes")
-    object RecipesListScreen : Screen(route = "recipesList/recipesListId")
+    object RecipesListResumesScreen : Screen(route = "recipesList")
     object RecipeDetailsScreen : Screen(route = "recipes/{recipeId}") {
         fun withRecipeId(recipeId: Int): String {
             return route.replace("{recipeId}", recipeId.toString())
@@ -10,5 +9,10 @@ sealed class Screen(val route: String) {
     }
 
     object PlanningListScreen : Screen(route = "planning")
-    object CourseListScreen : Screen(route = "courses")
+    object ShoppingListResumesScreen : Screen(route = "shoppingList")
+    object ShoppingListScreen: Screen(route = "shoppingList/{shoppingListId}"){
+        fun withShoppingListId(shoppingListId: Int): String {
+            return route.replace("{shoppingListId}", shoppingListId.toString())
+        }
+    }
 }

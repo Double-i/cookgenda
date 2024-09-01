@@ -104,7 +104,7 @@ private fun Day(
 }
 
 @Composable
-fun ShoppingList(viewModel: ShoppingListsViewModel) {
+fun ShoppingLists(viewModel: ShoppingListsViewModel) {
     val currentMonth = remember { YearMonth.now() }
     val startMonth = remember { currentMonth }
     val endMonth = remember { currentMonth.plusMonths(12) }

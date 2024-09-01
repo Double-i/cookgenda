@@ -141,16 +141,16 @@ fun BottomMenu(
         BottomMenuItem(
             "Courses",
             Icons.Outlined.ShoppingCart,
-            selected == Screen.CourseListScreen.route,
+            selected == Screen.ShoppingListResumesScreen.route,
             Modifier
                 .weight(1F)
                 .fillMaxHeight()
         ) {
-            if (selected == Screen.CourseListScreen.route) {
+            if (selected == Screen.ShoppingListResumesScreen.route) {
                 return@BottomMenuItem
             }
-            selected = Screen.CourseListScreen.route
-            navController.navigate(Screen.CourseListScreen.route)
+            selected = Screen.ShoppingListResumesScreen.route
+            navController.navigate(Screen.ShoppingListResumesScreen.route)
         }
     }
 }
