@@ -1,12 +1,17 @@
 package ch.morgias.cookgenda.android.network
 
+import ch.morgias.cookgenda.android.models.ShoppingList
 import ch.morgias.cookgenda.android.models.ShoppingListResume
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface ShoppingListApiService {
 
     @GET("shoppingLists")
     suspend fun getShoppingListResumes(): List<ShoppingListResume>
+
+    @GET("shoppingLists/{shoppingListId}")
+    suspend fun getShoppingList(@Path("shoppingListId") id: Int): ShoppingList
 
 }
 
