@@ -27,6 +27,12 @@ public class ShoppingListController {
         return ShoppingListMapper.INSTANCE.toShoppingListDto(shoppingListService.generateShoppingList(from, to));
     }
 
+
+    @GetMapping(Routes.SHOPPING_LISTS_SPECIFIC)
+    public ShoppingListDto getSpecificShoppingList(@PathVariable Long shoppingListId) {
+        return ShoppingListMapper.INSTANCE.toShoppingListDto(shoppingListService.getShoppingListById(shoppingListId));
+    }
+
     @GetMapping(Routes.SHOPPING_LISTS)
     public List<ShoppingListResumeDto> generateShoppingList() {
         return ShoppingListMapper.INSTANCE.toShoppingListResumesDto(shoppingListService.getShoppingLists());
