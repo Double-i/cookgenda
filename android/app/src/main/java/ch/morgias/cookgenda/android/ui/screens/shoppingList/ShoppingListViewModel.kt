@@ -13,14 +13,12 @@ class ShoppingListViewModel : ViewModel() {
     private val _shoppingListUiState: MutableStateFlow<RequestState> =
         MutableStateFlow(RequestState.Loading)
     val shoppingListUiState: StateFlow<RequestState> = _shoppingListUiState.asStateFlow()
-    init {
-        getShoppingListsList()
-    }
 
-    private fun getShoppingListsList() {
+
+    private fun getShoppingList(shoppingListId: Int) {
         viewModelScope.launch {
             _shoppingListUiState.value = try {
-                RequestState.Success(ShoppingListApi.retrofitService.getShoppingListResumes())
+                RequestState.Success(ShoppingListApi.retrofitService.getShoppingList(shoppingListId))
             } catch (err: Exception) {
                 RequestState.Error
             }
