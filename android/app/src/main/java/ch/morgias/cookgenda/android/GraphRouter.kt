@@ -25,9 +25,12 @@ fun GraphRouter(navController: NavHostController) {
             val vm = viewModel<ShoppingListsViewModel>()
             ShoppingLists(navController, vm)
         }
-        composable(route = Screen.ShoppingListScreen.route) {
+        composable(
+            route = Screen.ShoppingListScreen.route,
+            arguments = listOf(navArgument("shoppingListId") { type = NavType.IntType })
+        ) {
             val vm = viewModel<ShoppingListViewModel>()
-            ShoppingList(vm)
+            ShoppingList(vm, it.arguments!!.getInt("shoppingListId"))
         }
         composable(route = Screen.PlanningListScreen.route) {
             Planning(navController, recipeDetailsVm)

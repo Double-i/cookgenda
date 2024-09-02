@@ -10,7 +10,7 @@ sealed class Screen(val route: String) {
 
     object PlanningListScreen : Screen(route = "planning")
     object ShoppingListResumesScreen : Screen(route = "shoppingList")
-    object ShoppingListScreen: Screen(route = "shoppingList/{shoppingListId}"){
+    object ShoppingListScreen : Screen(route = "shoppingList/{shoppingListId}") {
         fun withShoppingListId(shoppingListId: Long): String {
             return route.replace("{shoppingListId}", shoppingListId.toString())
         }
