@@ -16,6 +16,7 @@ import ch.morgias.cookgenda.services.shopping.ShoppingListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
@@ -61,6 +62,7 @@ public class ShoppingListImpl implements ShoppingListService {
                                 f.setQuantity(recipeFood.getQuantity());
                                 f.setFood(recipeFood.getFood());
                                 f.setShoppingList(shoppingList);
+                                f.setPlanedDate(LocalDate.now()); // TODO pass planedRecipe to this method instead of recipeFoods to be able to get planedDate
                             } else {
                                 f.setQuantity(f.getQuantity() + recipeFood.getQuantity());
                             }
@@ -77,7 +79,7 @@ public class ShoppingListImpl implements ShoppingListService {
 
     @Override
     public ShoppingList getShoppingListById(Long shoppingListId) {
-        return shoppingListRepository.findById(shoppingListId).orElseThrow(ResourceNotFoundException::new);
+        return shoppingListRepository.findByIdWithFoodItems(shoppingListId).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
