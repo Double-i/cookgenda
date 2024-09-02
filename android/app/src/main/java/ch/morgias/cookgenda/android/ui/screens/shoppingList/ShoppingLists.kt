@@ -67,43 +67,7 @@ fun dateRangeDisplayText(startDate: LocalDate, endDate: LocalDate): String {
     return "Selected: ${rangeFormatter.format(startDate)} - ${rangeFormatter.format(endDate)}"
 }
 
-@Composable
-private fun Day(
-    day: CalendarDay,
-    today: LocalDate,
-    selection: DateSelection,
-    onClick: (CalendarDay) -> Unit,
-) {
-    val textColor = Color.Black
-    val dayColor: Color = when {
-        selection.startDate == day.date || selection.endDate == day.date -> Color.Blue
-        selection.startDate != null && selection.endDate != null && !day.date.isBefore(selection.startDate) && !day.date.isAfter(
-            selection.endDate
-        )
-        -> Color.Yellow
 
-        else -> Color.Transparent // or any default color if none of the conditions are met
-    }
-
-    Box(
-        modifier = Modifier
-            .aspectRatio(1f) // This is important for square-sizing!
-            .clickable(
-                enabled = day.position == DayPosition.MonthDate && day.date >= today,
-                onClick = { onClick(day) },
-            )
-            .background(dayColor),
-
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = day.date.dayOfMonth.toString(),
-            color = textColor,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium,
-        )
-    }
-}
 
 @Composable
 fun ShoppingLists(navController: NavHostController, viewModel: ShoppingListsViewModel) {
@@ -221,8 +185,16 @@ fun ShoppingLists(navController: NavHostController, viewModel: ShoppingListsView
                         Row(
                             modifier = Modifier
                                 .height(50.dp)
-                                .fillMaxWidth(),
+                                .fillMaxWidth()
+                                .clickable {
+                                    navController.navigate(
+                                        Screen.ShoppingListScreen.withShoppingListId(
+                                            recipe.id
+                                        )
+                                    )
+                                },
                             horizontalArrangement = Arrangement.SpaceBetween
+
 
                         ) {
                             Icon(
@@ -300,5 +272,43 @@ private fun CalendarTop(
             }
         }
         HorizontalDivider()
+    }
+}
+
+@Composable
+private fun Day(
+    day: CalendarDay,
+    today: LocalDate,
+    selection: DateSelection,
+    onClick: (CalendarDay) -> Unit,
+) {
+    val textColor = Color.Black
+    val dayColor: Color = when {
+        selection.startDate == day.date || selection.endDate == day.date -> Color.Blue
+        selection.startDate != null && selection.endDate != null && !day.date.isBefore(selection.startDate) && !day.date.isAfter(
+            selection.endDate
+        )
+        -> Color.Yellow
+
+        else -> Color.Transparent // or any default color if none of the conditions are met
+    }
+
+    Box(
+        modifier = Modifier
+            .aspectRatio(1f) // This is important for square-sizing!
+            .clickable(
+                enabled = day.position == DayPosition.MonthDate && day.date >= today,
+                onClick = { onClick(day) },
+            )
+            .background(dayColor),
+
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            text = day.date.dayOfMonth.toString(),
+            color = textColor,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+        )
     }
 }
