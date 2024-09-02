@@ -11,5 +11,12 @@ data class ShoppingList(
     @Serializable(with = LocalDateTimeSerializer::class) @Contextual val fromDate: LocalDateTime,
     @Serializable(with = LocalDateTimeSerializer::class) @Contextual val toDate: LocalDateTime,
     val shoppingListFoods: Collection<ShoppingListFoodDto>
+)
 
+@Serializable
+data class ShoppingListWithFoodListByCategory(
+    val id: Long,
+    @Serializable(with = LocalDateTimeSerializer::class) @Contextual val fromDate: LocalDateTime,
+    @Serializable(with = LocalDateTimeSerializer::class) @Contextual val toDate: LocalDateTime,
+    val shoppingListFoods: Map<String, MutableList<ShoppingListItem>>
 )
