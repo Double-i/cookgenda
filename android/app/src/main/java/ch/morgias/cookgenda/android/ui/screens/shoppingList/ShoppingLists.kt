@@ -36,6 +36,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import ch.morgias.cookgenda.android.Screen
 import ch.morgias.cookgenda.android.models.ShoppingListResume
 import ch.morgias.cookgenda.android.network.RequestState
 import ch.morgias.cookgenda.android.ui.screens.common.ErrorLoading
@@ -72,8 +74,8 @@ private fun Day(
     selection: DateSelection,
     onClick: (CalendarDay) -> Unit,
 ) {
-    var textColor = Color.Black
-    var dayColor: Color = when {
+    val textColor = Color.Black
+    val dayColor: Color = when {
         selection.startDate == day.date || selection.endDate == day.date -> Color.Blue
         selection.startDate != null && selection.endDate != null && !day.date.isBefore(selection.startDate) && !day.date.isAfter(
             selection.endDate
@@ -104,7 +106,7 @@ private fun Day(
 }
 
 @Composable
-fun ShoppingLists(viewModel: ShoppingListsViewModel) {
+fun ShoppingLists(navController: NavHostController, viewModel: ShoppingListsViewModel) {
     val currentMonth = remember { YearMonth.now() }
     val startMonth = remember { currentMonth }
     val endMonth = remember { currentMonth.plusMonths(12) }
@@ -120,9 +122,7 @@ fun ShoppingLists(viewModel: ShoppingListsViewModel) {
         Text("Liste des listes de courses", style = MaterialTheme.typography.titleLarge)
         Spacer(modifier = Modifier.height(30.dp))
         HorizontalDivider()
-// Animated visibility will eventually remove the item from the composition once the animation has finished.
         AnimatedVisibility(visible) {
-            // your composable here
             Column {
                 val state = rememberCalendarState(
                     startMonth = startMonth,
@@ -160,9 +160,25 @@ fun ShoppingLists(viewModel: ShoppingListsViewModel) {
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            if (selection.startDate == null || selection.endDate == null) {
+                                return@Button;
+                            }
+                            viewModel.generateNewShoppingList(
+                                selection.startDate!!,
+                                selection.endDate!!
+                            ) {
+                                navController.navigate(
+                                    Screen.ShoppingListScreen.withShoppingListId(
+                                        it
+                                    )
+                                )
+                            }
+
+                        },
                         enabled = hasSelection,
                         modifier = Modifier.weight(1F)
+
                     ) {
                         Text(text = "Générer")
 
