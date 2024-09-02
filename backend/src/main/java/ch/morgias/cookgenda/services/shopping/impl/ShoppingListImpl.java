@@ -6,6 +6,7 @@ import ch.morgias.cookgenda.models.food.RecipeFood;
 import ch.morgias.cookgenda.models.shopping.ShoppingList;
 import ch.morgias.cookgenda.models.shopping.ShoppingListFood;
 import ch.morgias.cookgenda.models.shopping.dto.EditShoppingListFood;
+import ch.morgias.cookgenda.models.shopping.dto.GeneratingShoppingListDto;
 import ch.morgias.cookgenda.models.shopping.dto.mappers.ShoppingListFoodMapper;
 import ch.morgias.cookgenda.repositories.ShoppingListItemRepository;
 import ch.morgias.cookgenda.repositories.ShoppingListRepository;
@@ -30,7 +31,10 @@ public class ShoppingListImpl implements ShoppingListService {
     private final RecipeService recipeService;
 
     @Override
-    public ShoppingList generateShoppingList(LocalDateTime from, LocalDateTime to) {
+    public ShoppingList generateShoppingList(GeneratingShoppingListDto shoppingListDto) {
+
+        LocalDateTime from = shoppingListDto.getFromDate().atStartOfDay();
+        LocalDateTime to = shoppingListDto.getToDate().plusDays(1).atStartOfDay().minusNanos(1); // toDate + 1 day - 1 nanosecond
         Collection<PlanedRecipe> planedRecipes = planedRecipeService.findPlanedRecipeByPeriodWithFoods(from, to);
         Collection<RecipeFood> recipeFoods = planedRecipes.stream()
                 .flatMap(r -> r.getRecipe()
@@ -48,8 +52,7 @@ public class ShoppingListImpl implements ShoppingListService {
 
     private static Map<Long, ShoppingListFood> transformRecipeFoodToShoppingListFood(Collection<RecipeFood> recipeFoods, ShoppingList shoppingList) {
         return recipeFoods.stream()
-                .reduce(new HashMap<Long, ShoppingListFood>(),
-                        // Acc method
+                .reduce(new HashMap<>(),
                         (acc, recipeFood) -> {
                             Long foodId = recipeFood.getFood().getId();
                             ShoppingListFood f = acc.get(foodId);

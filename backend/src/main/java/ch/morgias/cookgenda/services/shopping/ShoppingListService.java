@@ -4,13 +4,13 @@ package ch.morgias.cookgenda.services.shopping;
 import ch.morgias.cookgenda.models.shopping.ShoppingList;
 import ch.morgias.cookgenda.models.shopping.ShoppingListFood;
 import ch.morgias.cookgenda.models.shopping.dto.EditShoppingListFood;
+import ch.morgias.cookgenda.models.shopping.dto.GeneratingShoppingListDto;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ShoppingListService {
 
-    ShoppingList generateShoppingList(LocalDateTime from, LocalDateTime to);
+    ShoppingList generateShoppingList(GeneratingShoppingListDto generatingShoppingListDto);
 
     ShoppingList getShoppingListById(Long shoppingListId);
 
