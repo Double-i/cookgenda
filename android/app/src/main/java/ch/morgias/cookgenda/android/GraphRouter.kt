@@ -23,7 +23,7 @@ fun GraphRouter(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.RecipesListResumesScreen.route) {
         composable(route = Screen.ShoppingListResumesScreen.route) {
             val vm = viewModel<ShoppingListsViewModel>()
-            ShoppingLists(vm)
+            ShoppingLists(navController, vm)
         }
         composable(route = Screen.ShoppingListScreen.route) {
             val vm = viewModel<ShoppingListViewModel>()
