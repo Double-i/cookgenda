@@ -181,7 +181,6 @@ fun ShoppingLists(navController: NavHostController, viewModel: ShoppingListsView
 
                     ) {
                         Text(text = "Générer")
-
                     }
                     Button(onClick = {
                         visible = false

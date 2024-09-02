@@ -2,10 +2,11 @@ package ch.morgias.cookgenda.android.network
 
 import ch.morgias.cookgenda.android.models.ShoppingList
 import ch.morgias.cookgenda.android.models.ShoppingListResume
+import ch.morgias.cookgenda.android.models.dto.DatePeriodDto
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import java.time.LocalDate
 
 interface ShoppingListApiService {
 
@@ -17,8 +18,7 @@ interface ShoppingListApiService {
 
     @POST("shoppingLists")
     suspend fun generateShoppingList(
-        @Path("shoppingListId") startDate: LocalDate,
-        endDate: LocalDate
+        @Body data: DatePeriodDto
     ): ShoppingListResume
 
 }

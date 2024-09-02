@@ -1,7 +1,9 @@
 package ch.morgias.cookgenda.android.ui.screens.shoppingList
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ch.morgias.cookgenda.android.models.dto.DatePeriodDto
 import ch.morgias.cookgenda.android.network.RequestState
 import ch.morgias.cookgenda.android.network.ShoppingListApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,14 +38,15 @@ class ShoppingListsViewModel : ViewModel() {
     ) {
         viewModelScope.launch {
             try {
-                val t = ShoppingListApi.retrofitService.generateShoppingList(
-                    startDate,
-                    endDate
-
+                val resume = ShoppingListApi.retrofitService.generateShoppingList(
+                    DatePeriodDto(
+                        startDate,
+                        endDate
+                    )
                 )
-                callback(t.id)
-
+                callback(resume.id)
             } catch (err: Exception) {
+                Log.e("ShoppingListViewModel", err.message!!)
                 RequestState.Error
             }
         }
