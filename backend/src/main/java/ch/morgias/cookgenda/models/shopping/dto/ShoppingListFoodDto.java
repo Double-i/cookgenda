@@ -10,6 +10,7 @@ import java.time.LocalDate;
 public class ShoppingListFoodDto {
     private Long id;
     private Long foodId;
+    private Long shoppingListId;
     private String name;
     private Double quantity;
     private LocalDate planedDate;
