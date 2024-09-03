@@ -1,9 +1,11 @@
 package ch.morgias.cookgenda.android.ui.screens.shoppingList
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Checkbox
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,8 +39,16 @@ fun ShoppingList(viewModel: ShoppingListViewModel, shoppingListId: Int) {
                         item {
                             Text("Titre")
                         }
-                        items(listInfo.shoppingListFoods[it]!!) {
-                            Text("Item #")
+                        items(listInfo.shoppingListFoods[it]!!) { foodItem ->
+                            Row {
+                                Column {
+                                    Text(foodItem.name)
+                                    Text(foodItem.quantity.toString())
+                                }
+                                Checkbox(checked = foodItem.checked, onCheckedChange = {
+                                    viewModel.checkShoppingListFoodWithId(foodItem.id, it)
+                                })
+                            }
 
                         }
                     }
