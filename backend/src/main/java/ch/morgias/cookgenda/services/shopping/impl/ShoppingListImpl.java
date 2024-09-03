@@ -84,15 +84,15 @@ public class ShoppingListImpl implements ShoppingListService {
 
     @Override
     public ShoppingListFood getShoppingListFoodById(Long shoppingListFoodId) {
-        return shoppingListItemRepository.findById(shoppingListFoodId).orElseThrow(ResourceNotFoundException::new);
+        return shoppingListItemRepository.findByIdWithFood(shoppingListFoodId).orElseThrow(ResourceNotFoundException::new);
     }
-
 
     @Override
     public ShoppingListFood updateShoppingListFoodById(Long shoppingListFoodId, EditShoppingListFood editShoppingListFood) {
         ShoppingListFood food = getShoppingListFoodById(shoppingListFoodId);
         ShoppingListFoodMapper.INSTANCE.updateShoppingListFood(food, editShoppingListFood);
-        return null;
+        shoppingListItemRepository.save(food);
+        return food;
     }
 
     @Override
