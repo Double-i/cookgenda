@@ -14,6 +14,7 @@ public interface ShoppingListFoodMapper {
 
     @Mapping(source = "food.name", target = "name")
     @Mapping(source = "food.id", target = "foodId")
+    @Mapping(source = "shoppingList.id", target = "shoppingListId")
     ShoppingListFoodDto toShoppingListDto(ShoppingListFood shoppingList);
 
     Collection<ShoppingListFoodDto> toShoppingListFoodListDto(Collection<ShoppingListFood> shoppingList);
