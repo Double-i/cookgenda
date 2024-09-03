@@ -1,7 +1,12 @@
 package ch.morgias.cookgenda.models.shopping.dto;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class EditShoppingListFood {
-    Boolean checked;
-    Double quantity;
+    private Boolean checked;
+    private Double quantity;
 }
