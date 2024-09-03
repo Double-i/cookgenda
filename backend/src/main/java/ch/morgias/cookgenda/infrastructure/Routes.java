@@ -11,6 +11,6 @@ public class Routes {
     public static final String SHOPPING_LIST_GENERATE_FROM_TO = BASE_API + "/shoppingLists";
     public static final String SHOPPING_LISTS = BASE_API + "/shoppingLists";
     public static final String SHOPPING_LISTS_SPECIFIC = BASE_API + "/shoppingLists/{shoppingListId}";
-    public static final String SHOPPING_LIST_FOOD_UPDATE = BASE_API + "/shoppingListFood/{shoppingListFoodId}";
-    public static final String SHOPPING_LIST_FOOD_DELETE = BASE_API + "/shoppingListFood/{shoppingListFoodId}";
+    public static final String SHOPPING_LIST_FOOD_UPDATE = BASE_API + "/shoppingListFoods/{shoppingListFoodId}";
+    public static final String SHOPPING_LIST_FOOD_DELETE = BASE_API + "/shoppingListFoods/{shoppingListFoodId}";
 }
