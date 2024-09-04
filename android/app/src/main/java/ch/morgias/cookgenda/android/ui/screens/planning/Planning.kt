@@ -87,8 +87,8 @@ fun DayMealPlaning(recipe: PlanedRecipe, onDeleteMeal: onDeleteMealCallback) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .shadow(4.dp, shape)
-            .background(color = Color.Green)
+            .shadow(3.dp, shape)
+            .background(color = MaterialTheme.colorScheme.surface)
             .height(79.dp)
             .combinedClickable(
                 onClick = { },

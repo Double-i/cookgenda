@@ -49,7 +49,7 @@ fun RecipeDetails(
                 verticalArrangement = Arrangement.spacedBy(4.dp), modifier = Modifier
                     .verticalScroll(rememberScrollState())
             ) {
-                Row(modifier = Modifier.background(Color.Green)) {
+                Row(modifier = Modifier.background(MaterialTheme.colorScheme.surface)) {
                     AsyncImage(
                         contentScale = ContentScale.FillWidth,
                         placeholder = painterResource(R.drawable.recipe),

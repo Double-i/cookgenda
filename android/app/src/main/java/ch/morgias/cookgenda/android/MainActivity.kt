@@ -17,6 +17,7 @@ import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -59,7 +60,7 @@ fun ScaffoldBase() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it)
+                .padding(it).background(MaterialTheme.colorScheme.background)
         ) {
             GraphRouter(navController)
         }
@@ -82,9 +83,9 @@ fun BottomMenuItem(
         Icon(
             icon,
             contentDescription = text,
-            tint = if (selected) Color.Blue else Color.Black
+            tint = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.secondaryContainer
         )
-        Text(text = text, color = Color.Gray)
+        Text(text = text, color = MaterialTheme.colorScheme.onPrimary)
     }
 }
 
@@ -97,7 +98,7 @@ fun BottomMenu(
     Row(
         modifier = Modifier
             .height(50.dp)
-            .background(Color.Yellow)
+            .background(MaterialTheme.colorScheme.primary)
     ) {
         BottomMenuItem(
             "Recettes",

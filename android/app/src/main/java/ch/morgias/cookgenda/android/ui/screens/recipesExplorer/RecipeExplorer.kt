@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowForward
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -45,6 +46,7 @@ fun RecipesList(navController: NavHostController, viewModel: RecipeViewModel) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(10.dp)
+
             ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxHeight(),
@@ -55,8 +57,8 @@ fun RecipesList(navController: NavHostController, viewModel: RecipeViewModel) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .shadow(5.dp, shape)
-                                .background(color = Color.Green)
+                                .shadow(1.dp, shape)
+                                .background(color = MaterialTheme.colorScheme.surface)
                                 .height(80.dp)
                                 .clickable {
                                     navController.navigate(
