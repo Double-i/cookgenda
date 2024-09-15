@@ -30,8 +30,6 @@ fun ShoppingList(viewModel: ShoppingListViewModel, shoppingListId: Int) {
         viewModel.getShoppingList(shoppingListId)
 
     }
-
-
     when (val state = viewModel.shoppingListUiState.collectAsState().value) {
         RequestState.Error -> RequestState.Error
         RequestState.Loading -> RequestState.Loading

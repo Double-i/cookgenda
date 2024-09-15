@@ -143,16 +143,13 @@ fun DayMealPlaning(recipe: PlanedRecipe, onDeleteMeal: onDeleteMealCallback) {
 fun Planning(navController: NavHostController, viewModel: RecipeDetailsViewModel) {
     val pager = rememberPagerState(pageCount = { 5 })
     LaunchedEffect(pager.currentPage) {
-
-
         viewModel.getPlanedRecipeForSpecificWeek(
             viewModel.selectedMonday.plusDays(pager.currentPage * 7L),
-            viewModel.selectedMonday.plusDays(pager.currentPage * 7L + 6L)
+            viewModel.selectedMonday.plusDays(pager.currentPage * 7L + 7L)
         )
 
     }
     Column {
-        var t = viewModel.selectedRecipe.observeAsState().value
         viewModel.selectedRecipe.observeAsState().value?.let {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
